@@ -1,10 +1,12 @@
 'use strict';
+'require view';
+'require fs';
+'require ui';
 'require uci';
 'require rpc';
 'require form';
 
-var callBlockDevices, callMountPoints, callBlockDetect, callUmount,
-    callFileRead, callFileStat, callFileExec;
+var callBlockDevices, callMountPoints, callBlockDetect;
 
 callBlockDevices = rpc.declare({
 	object: 'luci',
@@ -22,44 +24,6 @@ callBlockDetect = rpc.declare({
 	object: 'luci',
 	method: 'setBlockDetect',
 	expect: { result: false }
-});
-
-callUmount = rpc.declare({
-	object: 'luci',
-	method: 'setUmount',
-	params: [ 'path' ],
-	expect: { result: false }
-});
-
-callFileRead = rpc.declare({
-	object: 'file',
-	method: 'read',
-	params: [ 'path' ],
-	expect: { data: '' },
-	filter: function(s) {
-		return (s || '').split(/\n/).filter(function(ln) {
-			return ln.match(/\S/) && !ln.match(/^nodev\t/);
-		}).map(function(ln) {
-			return ln.trim();
-		});
-	}
-});
-
-callFileStat = rpc.declare({
-	object: 'file',
-	method: 'stat',
-	params: [ 'path' ],
-	expect: { '': {} },
-	filter: function(st) {
-		return (L.isObject(st) && st.path != null);
-	}
-});
-
-callFileExec = rpc.declare({
-	object: 'file',
-	method: 'exec',
-	params: [ 'command', 'params' ],
-	expect: { code: 255 }
 });
 
 function device_textvalue(devices, section_id) {
@@ -106,7 +70,7 @@ function device_textvalue(devices, section_id) {
 	}
 }
 
-return L.view.extend({
+return view.extend({
 	handleDetect: function(m, ev) {
 		return callBlockDetect()
 			.then(L.bind(uci.unload, uci, 'fstab'))
@@ -114,30 +78,32 @@ return L.view.extend({
 	},
 
 	handleMountAll: function(m, ev) {
-		return callFileExec('/sbin/block', ['mount'])
-			.then(function(rc) {
-				if (rc != 0)
-					L.ui.addNotification(null, E('p', _('The <em>block mount</em> command failed with code %d').format(rc)));
+		return fs.exec('/sbin/block', ['mount'])
+			.then(function(res) {
+				if (res.code != 0)
+					ui.addNotification(null, E('p', _('The <em>block mount</em> command failed with code %d').format(res.code)));
 			})
 			.then(L.bind(uci.unload, uci, 'fstab'))
 			.then(L.bind(m.render, m));
 	},
 
 	handleUmount: function(m, path, ev) {
-		return callUmount(path)
+		return fs.exec('/bin/umount', [path])
 			.then(L.bind(uci.unload, uci, 'fstab'))
-			.then(L.bind(m.render, m));
+			.then(L.bind(m.render, m))
+			.catch(function(e) { ui.addNotification(null, E('p', e.message)) });
 	},
 
 	load: function() {
 		return Promise.all([
 			callBlockDevices(),
-			callFileRead('/proc/filesystems'),
-			callFileRead('/etc/filesystems'),
-			callFileStat('/usr/sbin/e2fsck'),
-			callFileStat('/usr/sbin/fsck.f2fs'),
-			callFileStat('/usr/sbin/dosfsck'),
-			callFileStat('/usr/bin/btrfsck'),
+			fs.lines('/proc/filesystems'),
+			fs.lines('/etc/filesystems'),
+			L.resolveDefault(fs.stat('/usr/sbin/e2fsck'), null),
+			L.resolveDefault(fs.stat('/usr/sbin/fsck.f2fs'), null),
+			L.resolveDefault(fs.stat('/usr/sbin/fsck.fat'), null),
+			L.resolveDefault(fs.stat('/usr/bin/btrfsck'), null),
+			L.resolveDefault(fs.stat('/usr/bin/ntfsfix'), null),
 			uci.load('fstab')
 		]);
 	},
@@ -149,18 +115,28 @@ return L.view.extend({
 		    triggers = {},
 		    trigger, m, s, o;
 
-		var filesystems = procfs.concat(etcfs.filter(function(fs) {
-			return procfs.indexOf(fs) < 0;
-		})).sort();
-
 		var fsck = {
 			ext2: results[3],
 			ext3: results[3],
 			ext4: results[3],
 			f2fs: results[4],
 			vfat: results[5],
-			btrfs: results[6]
+			btrfs: results[6],
+			ntfs: results[7]
 		};
+
+		var filesystems = {};
+
+		for (var i = 0; i < procfs.length; i++)
+			if (procfs[i].match(/\S/) && !procfs[i].match(/^nodev\t/))
+				filesystems[procfs[i].trim()] = true;
+
+		for (var i = 0; i < etcfs.length; i++)
+			if (etcfs[i].match(/\S/))
+				filesystems[etcfs[i].trim()] = true;
+
+		filesystems = Object.keys(filesystems).sort();
+
 
 		if (!uci.sections('fstab', 'global').length)
 			uci.add('fstab', 'global');
@@ -236,7 +212,8 @@ return L.view.extend({
 					'%.2f%% (%1024.2mB)'.format(100 / this.mounts[i].size * used, used),
 					umount ? E('button', {
 						'class': 'btn cbi-button-remove',
-						'click': L.ui.createHandlerFn(view, 'handleUmount', m, this.mounts[i].mount)
+						'click': ui.createHandlerFn(view, 'handleUmount', m, this.mounts[i].mount),
+						'disabled': this.map.readonly || null
 					}, [ _('Unmount') ]) : '-'
 				]);
 			}

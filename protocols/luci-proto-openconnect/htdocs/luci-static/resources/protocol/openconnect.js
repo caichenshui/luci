@@ -43,10 +43,13 @@ function validateCert(priv, section_id, value) {
 	    start = false,
 	    i;
 
+	if (value === null || value === '')
+		return true;
+
 	for (i = 0; i < lines.length; i++) {
 		if (lines[i].match(beg))
 			start = true;
-		else if (start && !lines[i].match(/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/))
+		else if (start && !lines[i].match(/^(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=)?$/))
 			break;
 	}
 
@@ -99,6 +102,7 @@ return network.registerProtocol('openconnect', {
 
 		s.taboption('general', form.Value, 'serverhash', _("VPN Server's certificate SHA1 hash"));
 		s.taboption('general', form.Value, 'authgroup', _('Auth Group'));
+		s.taboption('general', form.Value, 'usergroup', _('User Group'));
 		s.taboption("general", form.Value, "username", _("Username"));
 
 		o = s.taboption('general', form.Value, 'password', _('Password'));

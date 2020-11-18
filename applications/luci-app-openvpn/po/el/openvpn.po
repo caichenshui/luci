@@ -13,16 +13,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.0.4\n"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:822
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:825
-msgid "%s"
-msgstr "%s"
-
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:363
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:364
 msgid "'net30', 'p2p', or 'subnet'"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:480
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:481
 msgid "Accept options pushed from server"
 msgstr ""
 
@@ -30,7 +25,7 @@ msgstr ""
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:224
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:225
 msgid "Add route after establishing connection"
 msgstr ""
 
@@ -38,44 +33,44 @@ msgstr ""
 msgid "Add template based configuration"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:746
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:748
 msgid "Additional authentication over TLS"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:416
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:61
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:417
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:57
 msgid "Allow client-to-client traffic"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:421
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:422
 msgid "Allow multiple clients with same certificate"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:738
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:740
 msgid "Allow only one session"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:192
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:193
 msgid "Allow remote to change its IP or port"
 msgstr "Επιτρέπουμε στον απομακρυσμένο να αλλάξει την IP ή τη θύρα"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:456
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:457
 msgid "Allowed maximum of connected clients"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:461
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:462
 msgid "Allowed maximum of internal"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:466
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:467
 msgid "Allowed maximum of new connections"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:67
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:68
 msgid "Append log to file"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:485
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:486
 msgid "Authenticate using username/password"
 msgstr ""
 
@@ -89,33 +84,33 @@ msgstr ""
 "Παρακάτω είναι μία λίστα των ρυθμισμένων περιστατικών OpenVPN και της "
 "τρέχουσας κατάστασής τους"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:119
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:120
 msgid "Call down cmd/script before TUN/TAP close"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:658
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:81
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:77
 msgid "Certificate authority"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:79
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:80
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:17
 msgid "Change process priority"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:39
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:40
 msgid "Change to directory before initialization"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:774
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:776
 msgid "Check peer certificate against a CRL"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:43
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:44
 msgid "Chroot to directory after initialization"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:391
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:392
 msgid "Client is disabled"
 msgstr ""
 
@@ -123,17 +118,17 @@ msgstr ""
 msgid "Configuration category"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:476
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:57
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:477
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:53
 msgid "Configure client mode"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:376
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:377
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:37
 msgid "Configure server bridge"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:371
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:372
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:33
 msgid "Configure server mode"
 msgstr ""
@@ -150,85 +145,85 @@ msgstr ""
 msgid "Connection retry interval"
 msgstr "Διάστημα επαναπροσπάθειας σύνδεσης"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:47
-msgid "Daemonize after initialization"
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:564
+msgid "Cryptography"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:232
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:233
 msgid "Delay n seconds after connection"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:111
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:112
 msgid "Delay tun/tap open and up script execution"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:662
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:85
-msgid "Diffie Hellman parameters"
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:81
+msgid "Diffie-Hellman parameters"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:426
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:427
 msgid "Directory for custom client config files"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:23
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:24
 msgid "Disable Paging"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:27
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:28
 msgid "Disable options consistency check"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:196
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:197
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:41
 msgid "Do not bind to local address and port"
 msgstr "Μη συνδέσεις σε τοπική διεύθυνση και θύρα"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:216
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:217
 msgid "Don't actually execute ifconfig"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:236
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:237
 msgid "Don't add routes automatically"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:758
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:760
 msgid "Don't cache --askpass or --auth-user-pass passwords"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:244
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:245
 msgid "Don't drop incoming tun packets with same destination as host"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:386
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:387
 msgid "Don't inherit global push options"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:71
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:72
 msgid "Don't log timestamps"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:240
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:241
 msgid "Don't pull routes automatically"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:331
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:332
 msgid "Don't re-read key on restart"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:260
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:261
 msgid "Don't use adaptive lzo compression"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:220
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:221
 msgid "Don't warn on ifconfig inconsistencies"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:87
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:88
 msgid "Echo parameters to log"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:252
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:253
 msgid "Empirically measure MTU"
 msgstr ""
 
@@ -236,12 +231,12 @@ msgstr ""
 msgid "Enable OpenSSL hardware crypto engines"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:248
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:249
 msgid "Enable Path MTU discovery"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:568
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:69
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:65
 msgid "Enable Static Key encryption mode (non-TLS)"
 msgstr ""
 
@@ -254,15 +249,15 @@ msgstr ""
 msgid "Enable TLS and assume server role"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:164
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:165
 msgid "Enable a compression algorithm"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:277
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:278
 msgid "Enable internal datagram fragmentation"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:344
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:345
 msgid "Enable management interface on <em>IP</em> <em>port</em>"
 msgstr ""
 
@@ -270,7 +265,7 @@ msgstr ""
 msgid "Enabled"
 msgstr "Ενεργοποιημένο"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:750
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:752
 msgid "Encrypt and authenticate all control channel packets with the key"
 msgstr ""
 
@@ -278,43 +273,43 @@ msgstr ""
 msgid "Encryption cipher for packets"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:127
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:128
 msgid "Execute shell cmd after routes are added"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:131
-msgid "Execute shell command on remote ip change"
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:132
+msgid "Execute shell command on remote IP change"
 msgstr "Εκτέλεση της εντολής κελύφους στην αλλαγή IP του απομακρυσμένου"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:156
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:157
 msgid ""
 "Executed in server mode on new client connections, when the client is still "
 "untrusted"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:152
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:153
 msgid ""
 "Executed in server mode whenever an IPv4 address/route or MAC address is "
 "added to OpenVPN's internal routing table"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:742
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:744
 msgid "Exit on TLS negotiation failure"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:754
-msgid "Get PEM password from controlling tty before we daemonize"
+#: applications/luci-app-openvpn/root/usr/share/rpcd/acl.d/luci-app-openvpn.json:3
+msgid "Grant access to OpenVPN configuration"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:573
 msgid "HMAC authentication for packets"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:490
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:491
 msgid "Handling of authentication failures"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:307
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:308
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:49
 msgid ""
 "Helper directive to simplify the expression of --ping and --ping-restart in "
@@ -335,53 +330,57 @@ msgstr ""
 msgid "Instance with that name already exists!"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:335
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:336
 msgid "Keep local IP address on restart"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:339
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:340
 msgid "Keep remote IP address on restart"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:327
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:328
 msgid "Keep tun/tap device open on restart"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:734
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:736
 msgid "Key transition window"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:103
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:104
 msgid "Limit repeated log messages"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:666
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:89
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:85
 msgid "Local certificate"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:176
-msgid "Local host name or ip address"
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:177
+msgid "Local host name or IP address"
 msgstr "Όνομα τοπικού μηχανήματος ή διεύθυνση IP"
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:670
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:93
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:89
 msgid "Local private key"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:172
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:173
 msgid "Major mode"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:451
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:452
 msgid "Maximum number of queued TCP output packets"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:446
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:168
+msgid "Networking"
+msgstr ""
+
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:447
 msgid "Number of allocated broadcast buffers"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:359
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:360
 msgid "Number of lines for log file history"
 msgstr ""
 
@@ -389,11 +388,11 @@ msgstr ""
 msgid "OVPN configuration file upload"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:762
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:764
 msgid "Only accept connections from given X509 name"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:323
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:324
 msgid "Only process ping timeouts if routes exist"
 msgstr ""
 
@@ -406,12 +405,8 @@ msgstr "OpenVPN"
 msgid "OpenVPN instances"
 msgstr "Διεργασίες OpenVPN"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:83
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:84
 msgid "Optimize TUN/TAP/UDP writes"
-msgstr ""
-
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:51
-msgid "Output to syslog and do not daemonize"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/view/openvpn/pageswitch.htm:11
@@ -419,11 +414,11 @@ msgid "Overview"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:674
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:77
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:73
 msgid "PKCS#12 file containing keys"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:136
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:137
 msgid "Pass environment variables to script"
 msgstr ""
 
@@ -431,11 +426,11 @@ msgstr ""
 msgid "Persist replay-protection state"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:401
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:402
 msgid "Persist/unpersist ifconfig-pool"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:311
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:312
 msgid "Ping remote every n seconds over TCP/UDP port"
 msgstr ""
 
@@ -451,7 +446,7 @@ msgstr ""
 msgid "Please select a valid VPN template!"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:160
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:161
 msgid "Policy level over usage of external programs and scripts"
 msgstr ""
 
@@ -467,15 +462,15 @@ msgstr "Πρωτόκολλο"
 msgid "Proxy timeout in seconds"
 msgstr "Τέλος χρόνου μεσολαβητή σε δευτερόλεπτα"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:406
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:407
 msgid "Push an ifconfig option to remote"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:381
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:382
 msgid "Push options to peer"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:349
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:350
 msgid "Query management channel for private key"
 msgstr ""
 
@@ -483,32 +478,32 @@ msgstr ""
 msgid "Randomly choose remote server"
 msgstr "Τυχαία επιλογή απομακρυσμένου διακομιστή"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:431
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:432
 msgid "Refuse connection if no custom client config"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:91
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:92
 msgid "Remap SIGUSR1 signals"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:500
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:65
-msgid "Remote host name or ip address"
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:501
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:61
+msgid "Remote host name or IP address"
 msgstr "Όνομα απομακρυσμένου μηχανήματος ή διεύθυνση IP"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:315
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:316
 msgid "Remote ping timeout"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:718
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:720
 msgid "Renegotiate data chan. key after bytes"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:722
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:724
 msgid "Renegotiate data chan. key after packets"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:726
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:728
 msgid "Renegotiate data chan. key after seconds"
 msgstr ""
 
@@ -516,23 +511,23 @@ msgstr ""
 msgid "Replay protection sliding window size"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:766
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:768
 msgid "Require explicit designation on certificate"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:770
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:772
 msgid "Require explicit key usage on certificate"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:319
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:320
 msgid "Restart after remote ping timeout"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:794
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:796
 msgid "Restrict the allowed ciphers to be negotiated"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:714
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:716
 msgid "Retransmit timeout on TLS control channel"
 msgstr ""
 
@@ -544,23 +539,19 @@ msgstr "Επαναπροσπάθεια για πάντα αν υπάρχουν �
 msgid "Retry indefinitely on Socks proxy errors"
 msgstr "Επαναπροσπάθεια για πάντα σε περίπτωση λαθών στο διαμεσολαβητή Socks5"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:411
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:412
 msgid "Route subnet to client"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:59
-msgid "Run as an inetd or xinetd server"
-msgstr ""
-
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:144
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:145
 msgid "Run script cmd on client connection"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:148
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:149
 msgid "Run script cmd on client disconnection"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:123
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:124
 msgid "Run up/down scripts for all restarts"
 msgstr ""
 
@@ -581,23 +572,19 @@ msgstr ""
 msgid "Select template ..."
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:495
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:496
 msgid "Send notification to peer on disconnect"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:35
-msgid "Set GID to group"
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:15
+msgid "Service"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:265
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:266
 msgid "Set TCP/UDP MTU"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:31
-msgid "Set UID to user"
-msgstr ""
-
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:396
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:397
 msgid "Set aside a pool of subnets"
 msgstr ""
 
@@ -605,57 +592,57 @@ msgstr ""
 msgid "Set extended HTTP proxy options"
 msgstr "Ορισμός εκτεταμένων ρυθμίσεων διαμεσολαβητή HTTP"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:19
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:20
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:13
 msgid "Set output verbosity"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:441
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:442
 msgid "Set size of real and virtual address hash tables"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:291
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:292
 msgid "Set the TCP/UDP receive buffer size"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:287
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:288
 msgid "Set the TCP/UDP send buffer size"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:295
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:296
 msgid "Set tun/tap TX queue length"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:212
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:213
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:29
 msgid "Set tun/tap adapter parameters"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:269
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:270
 msgid "Set tun/tap device MTU"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:273
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:274
 msgid "Set tun/tap device overhead"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:282
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:283
 msgid "Set upper bound on TCP MSS"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:299
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:300
 msgid "Shaping for peer bandwidth"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:107
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:108
 msgid "Shell cmd to execute after tun device open"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:115
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:116
 msgid "Shell cmd to run after tun device close"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:140
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:141
 msgid "Shell command to verify X509 name"
 msgstr ""
 
@@ -667,7 +654,7 @@ msgstr ""
 msgid "Size of cipher key"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:228
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:229
 msgid "Specify a default gateway for routes"
 msgstr ""
 
@@ -675,7 +662,7 @@ msgstr ""
 msgid "Specify whether the client is required to supply a valid certificate"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:354
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:355
 msgid "Start OpenVPN in a hibernating state"
 msgstr ""
 
@@ -687,7 +674,7 @@ msgstr "Εκκίνηση/Τερματισμός"
 msgid "Started"
 msgstr "Ξεκίνησε"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:99
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:100
 msgid "Status file format version"
 msgstr ""
 
@@ -699,28 +686,28 @@ msgstr "Μετάβαση στις προχωρημένες ρυθμίσεις"
 msgid "Switch to basic configuration"
 msgstr "Μετάβαση στις βασικές επιλογές"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:180
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:181
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:21
 msgid "TCP/UDP port # for both local and remote"
 msgstr "TCP/UDP νούμερο θύρας για το τοπικό και το απομακρυσμένο"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:184
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:185
 msgid "TCP/UDP port # for local (default=1194)"
 msgstr "TCP/UDP αριθμός θύρας για το τοπικό (εξ'ορισμού=1194)"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:188
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:189
 msgid "TCP/UDP port # for remote (default=1194)"
 msgstr "TCP/UDP αριθμός θύρας για τον απομακρυσμένο (εξ'ορισμού=1194)"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:710
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:712
 msgid "TLS 1.3 or newer cipher"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:702
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:704
 msgid "TLS cipher"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:55
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:56
 msgid "TOS passthrough (applies to IPv4 only)"
 msgstr ""
 
@@ -728,7 +715,7 @@ msgstr ""
 msgid "Template based configuration"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:436
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:437
 msgid "Temporary directory for client-connect return file"
 msgstr ""
 
@@ -743,16 +730,16 @@ msgid ""
 "configuration."
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:782
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:784
 msgid "The highest supported TLS version"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:786
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:73
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:788
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:69
 msgid "The key direction for 'tls-auth' and 'secret' options"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:778
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:780
 msgid "The lowest supported TLS version"
 msgstr ""
 
@@ -762,15 +749,15 @@ msgid ""
 "LuCI (&ge; 100 KB)."
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:790
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:792
 msgid "This completely disables cipher negotiation"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:730
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:732
 msgid "Timeframe for key exchange"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:204
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:205
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:25
 msgid "Type of used device"
 msgstr "Είδος χρησιμοποιούμενης συσκευής"
@@ -783,33 +770,34 @@ msgstr ""
 msgid "Upload ovpn file"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:256
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:257
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:45
 msgid "Use fast LZO compression"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:510
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:53
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:97
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-basic.lua:103
 msgid "Use protocol"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:208
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:209
 msgid "Use tun/tap device node"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:471
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:472
 msgid "Use username as common name"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:63
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:368
+msgid "VPN"
+msgstr ""
+
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:64
 msgid "Write log to file"
 msgstr ""
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:75
-msgid "Write process ID to file"
-msgstr ""
-
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:95
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:96
 msgid "Write status to file every n seconds"
 msgstr ""
 
@@ -818,14 +806,17 @@ msgstr ""
 msgid "no"
 msgstr "όχι"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:200
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:201
 msgid "tun/tap device"
 msgstr "Συσκευή tun/tap"
 
-#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:303
+#: applications/luci-app-openvpn/luasrc/model/cbi/openvpn-advanced.lua:304
 msgid "tun/tap inactivity timeout"
 msgstr ""
 
 #: applications/luci-app-openvpn/luasrc/model/cbi/openvpn.lua:111
 msgid "yes (%i)"
 msgstr "ναι (%i)"
+
+#~ msgid "%s"
+#~ msgstr "%s"

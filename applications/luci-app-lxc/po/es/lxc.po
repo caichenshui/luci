@@ -1,28 +1,37 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
-"Last-Translator: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"PO-Revision-Date: 2020-05-02 15:56+0000\n"
+"Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationslxc/es/>\n"
 "Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: applications/luci-app-lxc/luasrc/model/cbi/lxc.lua:18
 msgid ""
-"<b>Please note:</b> For LXC Containers you need a custom OpenWrt image.<br />"
+"<b>Please note:</b> LXC Containers require features not available on OpenWrt "
+"images for devices with small flash.<br />"
 msgstr ""
-"<b>Tenga en cuenta:</b> Para los contenedores LXC necesita una imagen "
-"OpenWrt personalizada.<br />"
+"<b>Tenga en cuenta:</b> los contenedores LXC requieren funciones que no "
+"están disponibles en las imágenes OpenWrt para dispositivos con poco "
+"almacenamiento.<br />"
 
 #: applications/luci-app-lxc/luasrc/view/lxc.htm:29
 #: applications/luci-app-lxc/luasrc/view/lxc.htm:47
 msgid "Actions"
 msgstr "Acciones"
+
+#: applications/luci-app-lxc/luasrc/model/cbi/lxc.lua:19
+msgid "Also you may want to install 'kmod-veth' for optional network support."
+msgstr ""
+"También es posible que desee instalar 'kmod-veth' para soporte de red "
+"opcional."
 
 #: applications/luci-app-lxc/luasrc/view/lxc.htm:23
 msgid "Available Containers"
@@ -42,18 +51,18 @@ msgstr "Crear nuevo contenedor"
 
 #: applications/luci-app-lxc/luasrc/view/lxc.htm:133
 msgid "Delete"
-msgstr "Borrar"
+msgstr "Eliminar"
 
 #: applications/luci-app-lxc/luasrc/model/cbi/lxc.lua:31
 msgid "Enable SSL"
-msgstr "Habilitar SSL"
+msgstr "Activar SSL"
 
 #: applications/luci-app-lxc/luasrc/model/cbi/lxc.lua:32
 msgid ""
 "Enable optional SSL encryption support. This requires additional packages "
 "like 'wget', 'ca-certificates', 'gnupg' and 'gnupg-utils'."
 msgstr ""
-"Habilitar el soporte de cifrado SSL opcional. Esto requiere paquetes "
+"Activar el soporte de cifrado SSL opcional. Esto requiere paquetes "
 "adicionales como 'wget', 'ca-certificates', 'gnupg' y 'gnupg-utils'."
 
 #: applications/luci-app-lxc/luasrc/view/lxc.htm:50
@@ -67,6 +76,10 @@ msgstr "Umbral de espacio libre"
 #: applications/luci-app-lxc/luasrc/model/cbi/lxc.lua:42
 msgid "Free Temp Threshold"
 msgstr "Umbral de temperatura libre"
+
+#: applications/luci-app-lxc/root/usr/share/rpcd/acl.d/luci-app-lxc.json:3
+msgid "Grant UCI access for luci-app-lxc"
+msgstr "Conceder acceso UCI para luci-app-lxc"
 
 #: applications/luci-app-lxc/luasrc/controller/lxc.lua:31
 #: applications/luci-app-lxc/luasrc/model/cbi/lxc.lua:17
@@ -113,12 +126,18 @@ msgstr "Detener"
 msgid "Template"
 msgstr "Plantilla"
 
-#: applications/luci-app-lxc/luasrc/model/cbi/lxc.lua:19
-msgid ""
-"The image should include at least support for 'kernel cgroups', 'kernel "
-"namespaces' and 'miscellaneous LXC related options' plus 'kmod-veth' for "
-"optional network support."
-msgstr ""
-"La imagen debe incluir al menos soporte para 'kernel cgroups', 'kernel "
-"namespaces' y 'miscellaneous LXC related options' más 'kmod-veth' para "
-"soporte de red opcional."
+#~ msgid ""
+#~ "<b>Please note:</b> For LXC Containers you need a custom OpenWrt image."
+#~ "<br />"
+#~ msgstr ""
+#~ "<b>Tenga en cuenta:</b> Para los contenedores LXC necesita una imagen "
+#~ "OpenWrt personalizada.<br />"
+
+#~ msgid ""
+#~ "The image should include at least support for 'kernel cgroups', 'kernel "
+#~ "namespaces' and 'miscellaneous LXC related options' plus 'kmod-veth' for "
+#~ "optional network support."
+#~ msgstr ""
+#~ "La imagen debe incluir al menos soporte para 'kernel cgroups', 'kernel "
+#~ "namespaces' y 'miscellaneous LXC related options' más 'kmod-veth' para "
+#~ "soporte de red opcional."

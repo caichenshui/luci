@@ -3,15 +3,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-10 03:41+0200\n"
-"PO-Revision-Date: 2019-02-28 14:16-0300\n"
-"Last-Translator: José Vicente <josevteg@gmail.com>\n"
+"PO-Revision-Date: 2020-10-31 10:05+0000\n"
+"Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationsolsr/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
-"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/mid.htm:13
 msgid "Active MID announcements"
@@ -37,7 +38,7 @@ msgstr "Permitir puertas de enlace con NAT"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:147
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:141
-msgid "Allow the selection of an outgoing ipv4 gateway with NAT"
+msgid "Allow the selection of an outgoing IPv4 gateway with NAT"
 msgstr "Permitir seleccionar una pasarela IPv4 con NAT"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:155
@@ -94,14 +95,14 @@ msgstr ""
 msgid "Device"
 msgstr "Dispositivo"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:75
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:76
 msgid "Display"
-msgstr "Mostrar"
+msgstr "Monitor"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:60
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:112
 msgid "Downlink"
-msgstr "Enlace de bajada"
+msgstr "Enlace descendente"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/overview.htm:203
 msgid "Download Config"
@@ -122,7 +123,7 @@ msgstr "ETX"
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins.lua:15
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins6.lua:15
 msgid "Enable"
-msgstr "Habilitar"
+msgstr "Activar"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:140
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:134
@@ -130,18 +131,18 @@ msgid ""
 "Enable SmartGateway. If it is disabled, then all other SmartGateway "
 "parameters are ignored. Default is \"no\"."
 msgstr ""
-"Habilitar SmartGateway. Si se deshabilita el resto de parámetros de "
-"SmartGateway se ignoran. \"No\" por defecto."
+"Activar SmartGateway. Si se desactiva el resto de parámetros de SmartGateway "
+"se ignoran. \"No\" por defecto."
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface.lua:36
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface6.lua:36
 msgid "Enable this interface."
-msgstr "Habilitar esta interfaz."
+msgstr "Activar esta interfaz."
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins.lua:249
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins6.lua:249
 msgid "Enabled"
-msgstr "Habilitado"
+msgstr "Activado"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/legend.htm:5
 msgid "Expected retransmission count"
@@ -157,8 +158,8 @@ msgstr "Métrica FIB"
 msgid ""
 "FIBMetric controls the metric value of the host-routes OLSRd sets. \"flat\" "
 "means that the metric value is always 2. This is the preferred value because "
-"it helps the linux kernel routing to clean up older routes. \"correct\" uses "
-"the hopcount as the metric value. \"approx\" use the hopcount as the metric "
+"it helps the Linux kernel routing to clean up older routes. \"correct\" uses "
+"the hopcount as the metric value. \"approx\" uses the hopcount as the metric "
 "value too, but does only update the hopcount if the nexthop changes too. "
 "Default is \"flat\"."
 msgstr ""
@@ -177,7 +178,7 @@ msgstr "Mecanismo Fisheye para TCs (marcado = activado). Activado por defecto"
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:55
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:107
 msgid "Gateway"
-msgstr "Pasarela"
+msgstr "Puerta de enlace"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:42
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:222
@@ -201,19 +202,23 @@ msgstr "Bien (2 < ETX < 4)"
 msgid "Good (30 > SNR > 20)"
 msgstr "Bien (30 > SNR > 20)"
 
+#: applications/luci-app-olsr/root/usr/share/rpcd/acl.d/luci-app-olsr.json:3
+msgid "Grant UCI access for luci-app-olsr"
+msgstr "Conceder acceso UCI para luci-app-olsr"
+
 #: applications/luci-app-olsr/luasrc/view/status-olsr/legend.htm:8
 #: applications/luci-app-olsr/luasrc/view/status-olsr/legend.htm:17
 msgid "Green"
 msgstr "Verde"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:53
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:54
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:402
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:383
 #: applications/luci-app-olsr/luasrc/view/status-olsr/overview.htm:178
 msgid "HNA"
 msgstr "HNA"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr4.lua:24
+#: applications/luci-app-olsr/luasrc/controller/olsr4.lua:25
 msgid "HNA Announcements"
 msgstr "Declaraciones HNA"
 
@@ -231,7 +236,7 @@ msgstr "Intervalo HNA"
 msgid "HNA validity time"
 msgstr "Tiempo de validez de HNA"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr6.lua:24
+#: applications/luci-app-olsr/luasrc/controller/olsr6.lua:25
 msgid "HNA6 Announcements"
 msgstr "Anuncios HNA6"
 
@@ -281,11 +286,11 @@ msgstr "Saltos"
 #: applications/luci-app-olsr/luasrc/view/status-olsr/neighbors.htm:61
 #: applications/luci-app-olsr/luasrc/view/status-olsr/neighbors.htm:127
 msgid "Hostname"
-msgstr "Nombre de máquina"
+msgstr "Nombre del host"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdhna.lua:8
 msgid ""
-"Hosts in a OLSR routed network can announce connecitivity to external "
+"Hosts in an OLSR routed network can announce connectivity to external "
 "networks using HNA messages."
 msgstr ""
 "Las máquinas de una red OLSR pueden declarar conectividad con redes externas "
@@ -293,7 +298,7 @@ msgstr ""
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdhna6.lua:7
 msgid ""
-"Hosts in a OLSR routed network can announce connecitivity to external "
+"Hosts in an OLSR routed network can announce connectivity to external "
 "networks using HNA6 messages."
 msgstr ""
 "Los hosts en una red enrutada OLSR pueden anunciar la conectividad a redes "
@@ -333,7 +338,7 @@ msgstr "IPv4"
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:278
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface.lua:103
 msgid "IPv4 broadcast"
-msgstr "Propagar IPv4"
+msgstr "Difusión IPv4"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:279
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface.lua:104
@@ -451,15 +456,15 @@ msgstr "Interfaz"
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface.lua:52
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface6.lua:52
 msgid ""
-"Interface Mode is used to prevent unnecessary packet forwarding on switched "
-"ethernet interfaces. valid Modes are \"mesh\" and \"ether\". Default is "
+"Interface mode is used to prevent unnecessary packet forwarding on switched "
+"ethernet interfaces. Valid modes are \"mesh\" and \"ether\". Default is "
 "\"mesh\"."
 msgstr ""
 "El modo de interfaz se usar para evitar traspaso innecesario de paquetes en "
 "interfaces de red conmutados. Los modos válidos son \"mesh\" y \"ether\". "
 "Por defecto es \"mesh\"."
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:70
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:71
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:354
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:335
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:14
@@ -624,7 +629,7 @@ msgstr "Enlaces totales"
 msgid "Local interface IP"
 msgstr "IP de la interfaz local"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:58
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:59
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:395
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:376
 msgid "MID"
@@ -720,7 +725,7 @@ msgstr "Vecinos"
 msgid "Neighbour IP"
 msgstr "IP vecina"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:37
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:38
 msgid "Neighbours"
 msgstr "Vecinos"
 
@@ -773,7 +778,7 @@ msgstr "OLSR - Anuncios HNA"
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins6.lua:9
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins6.lua:216
 msgid "OLSR - Plugins"
-msgstr "OLSR - Plugins"
+msgstr "OLSR - Complementos"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:12
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:12
@@ -809,7 +814,7 @@ msgstr "Naranja"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/overview.htm:157
 msgid "Overview"
-msgstr "Resumen"
+msgstr "Visión general"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/hna.htm:87
 msgid "Overview of currently active OLSR host net announcements"
@@ -844,8 +849,8 @@ msgstr "Pasarelas inteligentes en esta red"
 msgid "Plugin configuration"
 msgstr "Configuración del plugin"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr4.lua:29
-#: applications/luci-app-olsr/luasrc/controller/olsr6.lua:29
+#: applications/luci-app-olsr/luasrc/controller/olsr4.lua:30
+#: applications/luci-app-olsr/luasrc/controller/olsr6.lua:30
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins.lua:240
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins6.lua:240
 msgid "Plugins"
@@ -892,7 +897,7 @@ msgstr ""
 "seguro, pero las páginas se cargarán lentamente si usa IPs públicas y tiene "
 "una configuración inestable de DNS. En este caso deshabilítelo aquí."
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:43
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:44
 msgid "Routes"
 msgstr "Rutas"
 
@@ -937,7 +942,7 @@ msgstr "Mostrar IPv6"
 msgid "Signal Noise Ratio in dB"
 msgstr "Ratio señal / ruido en dB"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:64
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:65
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:44
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:44
 msgid "SmartGW"
@@ -953,7 +958,7 @@ msgstr "SmartGateway no está configurado."
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:28
 msgid "Source address"
-msgstr "Dirección origen"
+msgstr "Dirección de origen"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:176
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:170
@@ -1073,7 +1078,7 @@ msgstr ""
 msgid "Timing and Validity"
 msgstr "Tiempo y validez"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:48
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:49
 msgid "Topology"
 msgstr "Topología"
 
@@ -1093,7 +1098,7 @@ msgstr "¡No puedo conectar con el demonio OLSR!"
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:59
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:111
 msgid "Uplink"
-msgstr "Enlace saliente"
+msgstr "Enlace ascendente"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:166
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:160
@@ -1197,7 +1202,7 @@ msgstr "abajo"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:30
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:134
-msgid "infinate"
+msgid "infinite"
 msgstr "infinito"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:40

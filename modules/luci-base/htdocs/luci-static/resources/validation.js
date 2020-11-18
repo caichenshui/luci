@@ -1,6 +1,11 @@
 'use strict';
+'require baseclass';
 
-var Validator = L.Class.extend({
+function bytelen(x) {
+	return new Blob([x]).size;
+}
+
+var Validator = baseclass.extend({
 	__name__: 'Validation',
 
 	__init__: function(field, type, optional, vfunc, validatorFactory) {
@@ -81,7 +86,7 @@ var Validator = L.Class.extend({
 
 });
 
-var ValidatorFactory = L.Class.extend({
+var ValidatorFactory = baseclass.extend({
 	__name__: 'ValidatorFactory',
 
 	create: function(field, type, optional, vfunc) {
@@ -221,7 +226,7 @@ var ValidatorFactory = L.Class.extend({
 
 	types: {
 		integer: function() {
-			return this.assert(this.factory.parseInteger(this.value) !== NaN, _('valid integer value'));
+			return this.assert(!isNaN(this.factory.parseInteger(this.value)), _('valid integer value'));
 		},
 
 		uinteger: function() {
@@ -229,7 +234,7 @@ var ValidatorFactory = L.Class.extend({
 		},
 
 		float: function() {
-			return this.assert(this.factory.parseDecimal(this.value) !== NaN, _('valid decimal value'));
+			return this.assert(!isNaN(this.factory.parseDecimal(this.value)), _('valid decimal value'));
 		},
 
 		ufloat: function() {
@@ -336,7 +341,7 @@ var ValidatorFactory = L.Class.extend({
 		},
 
 		host: function(ipv4only) {
-			return this.assert(this.apply('hostname') || this.apply(ipv4only == 1 ? 'ip4addr' : 'ipaddr'),
+			return this.assert(this.apply('hostname') || this.apply(ipv4only == 1 ? 'ip4addr' : 'ipaddr', null, ['nomask']),
 				_('valid hostname or IP address'));
 		},
 
@@ -420,24 +425,23 @@ var ValidatorFactory = L.Class.extend({
 		},
 
 		length: function(len) {
-			var val = '' + this.value;
-			return this.assert(val.length == +len,
+			return this.assert(bytelen(this.value) == +len,
 				_('value with %d characters').format(len));
 		},
 
 		rangelength: function(min, max) {
-			var val = '' + this.value;
-			return this.assert((val.length >= +min) && (val.length <= +max),
+			var len = bytelen(this.value);
+			return this.assert((len >= +min) && (len <= +max),
 				_('value between %d and %d characters').format(min, max));
 		},
 
 		minlength: function(min) {
-			return this.assert((''+this.value).length >= +min,
+			return this.assert(bytelen(this.value) >= +min,
 				_('value with at least %d characters').format(min));
 		},
 
 		maxlength: function(max) {
-			return this.assert((''+this.value).length <= +max,
+			return this.assert(bytelen(this.value) <= +max,
 				_('value with at most %d characters').format(max));
 		},
 
@@ -535,9 +539,9 @@ var ValidatorFactory = L.Class.extend({
 
 		unique: function(subvalidator, subargs) {
 			var ctx = this,
-			    option = findParent(ctx.field, '[data-type][data-name]'),
+			    option = findParent(ctx.field, '[data-widget][data-name]'),
 			    section = findParent(option, '.cbi-section'),
-			    query = '[data-type="%s"][data-name="%s"]'.format(option.getAttribute('data-type'), option.getAttribute('data-name')),
+			    query = '[data-widget="%s"][data-name="%s"]'.format(option.getAttribute('data-widget'), option.getAttribute('data-name')),
 			    unique = true;
 
 			section.querySelectorAll(query).forEach(function(sibling) {

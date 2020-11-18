@@ -1,168 +1,19 @@
 'use strict';
+'require view';
+'require dom';
 'require form';
 'require rpc';
+'require fs';
+'require ui';
 
-var callFileStat, callFileRead, callFileWrite, callFileExec, callFileRemove, callSystemValidateFirmwareImage;
+var isReadonlyView = !L.hasViewPermission();
 
-callFileStat = rpc.declare({
-	object: 'file',
-	method: 'stat',
-	params: [ 'path' ],
-	expect: { '': {} }
-});
-
-callFileRead = rpc.declare({
-	object: 'file',
-	method: 'read',
-	params: [ 'path' ],
-	expect: { data: '' },
-	filter: function(s) { return (s || '').trim() }
-});
-
-callFileWrite = rpc.declare({
-	object: 'file',
-	method: 'write',
-	params: [ 'path', 'data' ]
-});
-
-callFileExec = rpc.declare({
-	object: 'file',
-	method: 'exec',
-	params: [ 'command', 'params' ],
-	expect: { '': { code: -1 } }
-});
-
-callFileRemove = rpc.declare({
-	object: 'file',
-	method: 'remove',
-	params: [ 'path' ]
-});
-
-callSystemValidateFirmwareImage = rpc.declare({
+var callSystemValidateFirmwareImage = rpc.declare({
 	object: 'system',
 	method: 'validate_firmware_image',
 	params: [ 'path' ],
 	expect: { '': { valid: false, forcable: true } }
 });
-
-function pingDevice(proto, ipaddr) {
-	var target = '%s://%s%s?%s'.format(proto || 'http', ipaddr || window.location.host, L.resource('icons/loading.gif'), Math.random());
-
-	return new Promise(function(resolveFn, rejectFn) {
-		var img = new Image();
-
-		img.onload = resolveFn;
-		img.onerror = rejectFn;
-
-		window.setTimeout(rejectFn, 1000);
-
-		img.src = target;
-	});
-}
-
-function awaitReconnect(/* ... */) {
-	var ipaddrs = arguments.length ? arguments : [ window.location.host ];
-
-	window.setTimeout(function() {
-		L.Poll.add(function() {
-			var tasks = [], reachable = false;
-
-			for (var i = 0; i < 2; i++)
-				for (var j = 0; j < ipaddrs.length; j++)
-					tasks.push(pingDevice(i ? 'https' : 'http', ipaddrs[j])
-						.then(function(ev) { reachable = ev.target.src.replace(/^(https?:\/\/[^\/]+).*$/, '$1/') }, function() {}));
-
-			return Promise.all(tasks).then(function() {
-				if (reachable) {
-					L.Poll.stop();
-					window.location = reachable;
-				}
-			});
-		})
-	}, 5000);
-}
-
-function fileUpload(node, path) {
-	return new Promise(function(resolveFn, rejectFn) {
-		L.ui.showModal(_('Uploading file…'), [
-			E('p', _('Please select the file to upload.')),
-			E('div', { 'style': 'display:flex' }, [
-				E('div', { 'class': 'left', 'style': 'flex:1' }, [
-					E('input', {
-						type: 'file',
-						style: 'display:none',
-						change: function(ev) {
-							L.dom.parent(ev.target, '.modal').querySelector('.cbi-button-action.important').disabled = false;
-						}
-					}),
-					E('button', {
-						'class': 'btn',
-						'click': function(ev) {
-							ev.target.previousElementSibling.click();
-						}
-					}, [ _('Browse…') ])
-				]),
-				E('div', { 'class': 'right', 'style': 'flex:1' }, [
-					E('button', {
-						'class': 'btn',
-						'click': function() {
-							L.ui.hideModal();
-							rejectFn(new Error('Upload has been cancelled'));
-						}
-					}, [ _('Cancel') ]),
-					' ',
-					E('button', {
-						'class': 'btn cbi-button-action important',
-						'disabled': true,
-						'click': function(ev) {
-							var input = L.dom.parent(ev.target, '.modal').querySelector('input[type="file"]');
-
-							if (!input.files[0])
-								return;
-
-							var progress = E('div', { 'class': 'cbi-progressbar', 'title': '0%' }, E('div', { 'style': 'width:0' }));
-
-							L.ui.showModal(_('Uploading file…'), [ progress ]);
-
-							var data = new FormData();
-
-							data.append('sessionid', rpc.getSessionID());
-							data.append('filename', path);
-							data.append('filedata', input.files[0]);
-
-							L.Request.post('/cgi-bin/cgi-upload', data, {
-								timeout: 0,
-								progress: function(pev) {
-									var percent = (pev.loaded / pev.total) * 100;
-
-									node.data = '%.2f%%'.format(percent);
-
-									progress.setAttribute('title', '%.2f%%'.format(percent));
-									progress.firstElementChild.style.width = '%.2f%%'.format(percent);
-								}
-							}).then(function(res) {
-								var reply = res.json();
-
-								L.ui.hideModal();
-
-								if (L.isObject(reply) && reply.failure) {
-									L.ui.addNotification(null, E('p', _('Upload request failed: %s').format(reply.message)));
-									rejectFn(new Error(reply.failure));
-								}
-								else {
-									resolveFn(reply);
-								}
-							}, function(err) {
-								L.ui.hideModal();
-								rejectFn(err);
-							});
-						}
-					}, [ _('Upload') ])
-				])
-			])
-		]);
-	});
-}
 
 function findStorageSize(procmtd, procpart) {
 	var kernsize = 0, rootsize = 0, wholesize = 0;
@@ -213,19 +64,15 @@ function findStorageSize(procmtd, procpart) {
 
 var mapdata = { actions: {}, config: {} };
 
-return L.view.extend({
+return view.extend({
 	load: function() {
-		var max_ubi = 2, max_ubi_vol = 4;
 		var tasks = [
-			callFileStat('/lib/upgrade/platform.sh'),
-			callFileRead('/proc/sys/kernel/hostname'),
-			callFileRead('/proc/mtd'),
-			callFileRead('/proc/partitions')
+			L.resolveDefault(fs.stat('/lib/upgrade/platform.sh'), {}),
+			fs.trimmed('/proc/sys/kernel/hostname'),
+			fs.trimmed('/proc/mtd'),
+			fs.trimmed('/proc/partitions'),
+			fs.trimmed('/proc/mounts')
 		];
-
-		for (var i = 0; i < max_ubi; i++)
-			for (var j = 0; j < max_ubi_vol; j++)
-				tasks.push(callFileRead('/sys/devices/virtual/ubi/ubi%d/ubi%d_%d/name'.format(i, i, j)));
 
 		return Promise.all(tasks);
 	},
@@ -233,7 +80,7 @@ return L.view.extend({
 	handleBackup: function(ev) {
 		var form = E('form', {
 			method: 'post',
-			action: '/cgi-bin/cgi-backup',
+			action: L.env.cgi_base + '/cgi-backup',
 			enctype: 'application/x-www-form-urlencoded'
 		}, E('input', { type: 'hidden', name: 'sessionid', value: rpc.getSessionID() }));
 
@@ -247,57 +94,56 @@ return L.view.extend({
 		if (!confirm(_('Do you really want to erase all settings?')))
 			return;
 
-		return callFileExec('/sbin/firstboot', [ '-r', '-y' ]).then(function(res) {
-			if (res.code != 0)
-				return L.ui.addNotification(null, E('p', _('The firstboot command failed with code %d').format(res.code)));
+		ui.showModal(_('Erasing...'), [
+			E('p', { 'class': 'spinning' }, _('The system is erasing the configuration partition now and will reboot itself when finished.'))
+		]);
 
-			L.ui.showModal(_('Erasing...'), [
-				E('p', { 'class': 'spinning' }, _('The system is erasing the configuration partition now and will reboot itself when finished.'))
-			]);
+		/* Currently the sysupgrade rpc call will not return, hence no promise handling */
+		fs.exec('/sbin/firstboot', [ '-r', '-y' ]);
 
-			awaitReconnect('192.168.1.1', 'openwrt.lan');
-		});
+		ui.awaitReconnect('192.168.1.1', 'openwrt.lan');
 	},
 
 	handleRestore: function(ev) {
-		return fileUpload(ev.target, '/tmp/backup.tar.gz')
+		return ui.uploadFile('/tmp/backup.tar.gz', ev.target)
 			.then(L.bind(function(btn, res) {
 				btn.firstChild.data = _('Checking archive…');
-				return callFileExec('/bin/tar', [ '-tzf', '/tmp/backup.tar.gz' ]);
+				return fs.exec('/bin/tar', [ '-tzf', '/tmp/backup.tar.gz' ]);
 			}, this, ev.target))
 			.then(L.bind(function(btn, res) {
 				if (res.code != 0) {
-					L.ui.addNotification(null, E('p', _('The uploaded backup archive is not readable')));
-					return callFileRemove('/tmp/backup.tar.gz');
+					ui.addNotification(null, E('p', _('The uploaded backup archive is not readable')));
+					return fs.remove('/tmp/backup.tar.gz');
 				}
 
-				L.ui.showModal(_('Apply backup?'), [
+				ui.showModal(_('Apply backup?'), [
 					E('p', _('The uploaded backup archive appears to be valid and contains the files listed below. Press "Continue" to restore the backup and reboot, or "Cancel" to abort the operation.')),
 					E('pre', {}, [ res.stdout ]),
 					E('div', { 'class': 'right' }, [
 						E('button', {
 							'class': 'btn',
-							'click': L.ui.createHandlerFn(this, function(ev) {
-								return callFileRemove('/tmp/backup.tar.gz').finally(L.ui.hideModal);
+							'click': ui.createHandlerFn(this, function(ev) {
+								return fs.remove('/tmp/backup.tar.gz').finally(ui.hideModal);
 							})
 						}, [ _('Cancel') ]), ' ',
 						E('button', {
 							'class': 'btn cbi-button-action important',
-							'click': L.ui.createHandlerFn(this, 'handleRestoreConfirm', btn)
+							'click': ui.createHandlerFn(this, 'handleRestoreConfirm', btn)
 						}, [ _('Continue') ])
 					])
 				]);
 			}, this, ev.target))
+			.catch(function(e) { ui.addNotification(null, E('p', e.message)) })
 			.finally(L.bind(function(btn, input) {
 				btn.firstChild.data = _('Upload archive...');
 			}, this, ev.target));
 	},
 
 	handleRestoreConfirm: function(btn, ev) {
-		return callFileExec('/sbin/sysupgrade', [ '--restore-backup', '/tmp/backup.tar.gz' ])
+		return fs.exec('/sbin/sysupgrade', [ '--restore-backup', '/tmp/backup.tar.gz' ])
 			.then(L.bind(function(btn, res) {
 				if (res.code != 0) {
-					L.ui.addNotification(null, [
+					ui.addNotification(null, [
 						E('p', _('The restore command failed with code %d').format(res.code)),
 						res.stderr ? E('pre', {}, [ res.stderr ]) : ''
 					]);
@@ -305,28 +151,29 @@ return L.view.extend({
 				}
 
 				btn.firstChild.data = _('Rebooting…');
-				return callFileExec('/sbin/reboot');
+				return fs.exec('/sbin/reboot');
 			}, this, ev.target))
 			.then(L.bind(function(res) {
 				if (res.code != 0) {
-					L.ui.addNotification(null, E('p', _('The reboot command failed with code %d').format(res.code)));
+					ui.addNotification(null, E('p', _('The reboot command failed with code %d').format(res.code)));
 					L.raise('Error', 'Reboot failed');
 				}
 
-				L.ui.showModal(_('Rebooting…'), [
+				ui.showModal(_('Rebooting…'), [
 					E('p', { 'class': 'spinning' }, _('The system is rebooting now. If the restored configuration changed the current LAN IP address, you might need to reconnect manually.'))
 				]);
 
-				awaitReconnect(window.location.host, '192.168.1.1', 'openwrt.lan');
+				ui.awaitReconnect(window.location.host, '192.168.1.1', 'openwrt.lan');
 			}, this))
-			.catch(function() { btn.firstChild.data = _('Upload archive...') });
+			.catch(function(e) { ui.addNotification(null, E('p', e.message)) })
+			.finally(function() { btn.firstChild.data = _('Upload archive...') });
 	},
 
 	handleBlock: function(hostname, ev) {
-		var mtdblock = L.dom.parent(ev.target, '.cbi-section').querySelector('[data-name="mtdselect"] select').value;
+		var mtdblock = dom.parent(ev.target, '.cbi-section').querySelector('[data-name="mtdselect"] select').value;
 		var form = E('form', {
 			'method': 'post',
-			'action': '/cgi-bin/cgi-download',
+			'action': L.env.cgi_base + '/cgi-download',
 			'enctype': 'application/x-www-form-urlencoded'
 		}, [
 			E('input', { 'type': 'hidden', 'name': 'sessionid', 'value': rpc.getSessionID() }),
@@ -341,11 +188,11 @@ return L.view.extend({
 	},
 
 	handleSysupgrade: function(storage_size, ev) {
-		return fileUpload(ev.target.firstChild, '/tmp/firmware.bin')
+		return ui.uploadFile('/tmp/firmware.bin', ev.target.firstChild)
 			.then(L.bind(function(btn, reply) {
 				btn.firstChild.data = _('Checking image…');
 
-				L.ui.showModal(_('Checking image…'), [
+				ui.showModal(_('Checking image…'), [
 					E('span', { 'class': 'spinning' }, _('Verifying the uploaded image file.'))
 				]);
 
@@ -353,7 +200,7 @@ return L.view.extend({
 					.then(function(res) { return [ reply, res ]; });
 			}, this, ev.target))
 			.then(L.bind(function(btn, reply) {
-				return callFileExec('/sbin/sysupgrade', [ '--test', '/tmp/firmware.bin' ])
+				return fs.exec('/sbin/sysupgrade', [ '--test', '/tmp/firmware.bin' ])
 					.then(function(res) { reply.push(res); return reply; });
 			}, this, ev.target))
 			.then(L.bind(function(btn, res) {
@@ -371,6 +218,10 @@ return L.view.extend({
 					res[0].checksum ? E('li', {}, '%s: %s'.format(_('MD5'), res[0].checksum)) : '',
 					res[0].sha256sum ? E('li', {}, '%s: %s'.format(_('SHA256'), res[0].sha256sum)) : ''
 				]));
+
+				body.push(E('p', {}, E('label', { 'class': 'btn' }, [
+					keep, ' ', _('Keep settings and retain the current configuration')
+				])));
 
 				if (!is_valid || is_too_big)
 					body.push(E('hr'));
@@ -392,13 +243,12 @@ return L.view.extend({
 					body.push(E('p', { 'class': 'alert-message' }, [
 						_('The uploaded firmware does not allow keeping current configuration.')
 					]));
+
 				if (allow_backup)
 					keep.checked = true;
 				else
 					keep.disabled = true;
-				body.push(E('p', {}, E('label', { 'class': 'btn' }, [
-					keep, ' ', _('Keep settings and retain the current configuration')
-				])));
+
 
 				if ((!is_valid || is_too_big) && is_forceable)
 					body.push(E('p', {}, E('label', { 'class': 'btn alert-message danger' }, [
@@ -409,15 +259,15 @@ return L.view.extend({
 
 				var cntbtn = E('button', {
 					'class': 'btn cbi-button-action important',
-					'click': L.ui.createHandlerFn(this, 'handleSysupgradeConfirm', btn, keep.checked, force.checked),
+					'click': ui.createHandlerFn(this, 'handleSysupgradeConfirm', btn, keep, force),
 					'disabled': (!is_valid || is_too_big) ? true : null
 				}, [ _('Continue') ]);
 
 				body.push(E('div', { 'class': 'right' }, [
 					E('button', {
 						'class': 'btn',
-						'click': L.ui.createHandlerFn(this, function(ev) {
-							return callFileRemove('/tmp/firmware.bin').finally(L.ui.hideModal);
+						'click': ui.createHandlerFn(this, function(ev) {
+							return fs.remove('/tmp/firmware.bin').finally(ui.hideModal);
 						})
 					}, [ _('Cancel') ]), ' ', cntbtn
 				]));
@@ -426,8 +276,9 @@ return L.view.extend({
 					cntbtn.disabled = !ev.target.checked;
 				});
 
-				L.ui.showModal(_('Flash image?'), body);
+				ui.showModal(_('Flash image?'), body);
 			}, this, ev.target))
+			.catch(function(e) { ui.addNotification(null, E('p', e.message)) })
 			.finally(L.bind(function(btn) {
 				btn.firstChild.data = _('Flash image...');
 			}, this, ev.target));
@@ -436,43 +287,46 @@ return L.view.extend({
 	handleSysupgradeConfirm: function(btn, keep, force, ev) {
 		btn.firstChild.data = _('Flashing…');
 
-		L.ui.showModal(_('Flashing…'), [
+		ui.showModal(_('Flashing…'), [
 			E('p', { 'class': 'spinning' }, _('The system is flashing now.<br /> DO NOT POWER OFF THE DEVICE!<br /> Wait a few minutes before you try to reconnect. It might be necessary to renew the address of your computer to reach the device again, depending on your settings.'))
 		]);
 
 		var opts = [];
 
-		if (!keep)
+		if (!keep.checked)
 			opts.push('-n');
 
-		if (force)
+		if (force.checked)
 			opts.push('--force');
 
 		opts.push('/tmp/firmware.bin');
 
 		/* Currently the sysupgrade rpc call will not return, hence no promise handling */
-		callFileExec('/sbin/sysupgrade', opts);
+		fs.exec('/sbin/sysupgrade', opts);
 
-		awaitReconnect(window.location.host, '192.168.1.1', 'openwrt.lan');
+		if (keep.checked)
+			ui.awaitReconnect(window.location.host);
+		else
+			ui.awaitReconnect('192.168.1.1', 'openwrt.lan');
 	},
 
 	handleBackupList: function(ev) {
-		return callFileExec('/sbin/sysupgrade', [ '--list-backup' ]).then(function(res) {
+		return fs.exec('/sbin/sysupgrade', [ '--list-backup' ]).then(function(res) {
 			if (res.code != 0) {
-				L.ui.addNotification(null, [
+				ui.addNotification(null, [
 					E('p', _('The sysupgrade command failed with code %d').format(res.code)),
 					res.stderr ? E('pre', {}, [ res.stderr ]) : ''
 				]);
 				L.raise('Error', 'Sysupgrade failed');
 			}
 
-			L.ui.showModal(_('Backup file list'), [
+			ui.showModal(_('Backup file list'), [
 				E('p', _('Below is the determined list of files to backup. It consists of changed configuration files marked by opkg, essential base files and the user defined backup patterns.')),
 				E('ul', {}, (res.stdout || '').trim().split(/\n/).map(function(ln) { return E('li', {}, ln) })),
 				E('div', { 'class': 'right' }, [
 					E('button', {
 						'class': 'btn',
-						'click': L.ui.hideModal
+						'click': ui.hideModal
 					}, [ _('Dismiss') ])
 				])
 			], 'cbi-modal');
@@ -481,11 +335,11 @@ return L.view.extend({
 
 	handleBackupSave: function(m, ev) {
 		return m.save(function() {
-			return callFileWrite('/etc/sysupgrade.conf', mapdata.config.editlist.trim().replace(/\r\n/g, '\n') + '\n');
+			return fs.write('/etc/sysupgrade.conf', mapdata.config.editlist.trim().replace(/\r\n/g, '\n') + '\n');
 		}).then(function() {
-			L.ui.addNotification(null, E('p', _('Contents have been saved.')), 'info');
+			ui.addNotification(null, E('p', _('Contents have been saved.')), 'info');
 		}).catch(function(e) {
-			L.ui.addNotification(null, E('p', _('Unable to save contents: %s').format(e)));
+			ui.addNotification(null, E('p', _('Unable to save contents: %s').format(e)));
 		});
 	},
 
@@ -494,12 +348,14 @@ return L.view.extend({
 		    hostname = rpc_replies[1],
 		    procmtd = rpc_replies[2],
 		    procpart = rpc_replies[3],
-		    has_rootfs_data = (procmtd.match(/"rootfs_data"/) != null) || rpc_replies.slice(4).filter(function(n) { return n == 'rootfs_data' })[0],
+		    procmounts = rpc_replies[4],
+		    has_rootfs_data = (procmtd.match(/"rootfs_data"/) != null) || (procmounts.match("overlayfs:\/overlay \/ ") != null),
 		    storage_size = findStorageSize(procmtd, procpart),
 		    m, s, o, ss;
 
 		m = new form.JSONMap(mapdata, _('Flash operations'));
 		m.tabbed = true;
+		m.readonly = isReadonlyView;
 
 		s = m.section(form.NamedSection, 'actions', _('Actions'));
 
@@ -529,16 +385,21 @@ return L.view.extend({
 		o.onclick = L.bind(this.handleRestore, this);
 
 
-		if (procmtd.length) {
+		var mtdblocks = [];
+		procmtd.split(/\n/).forEach(function(ln) {
+			var match = ln.match(/^mtd(\d+): .+ "(.+?)"$/);
+			if (match)
+				mtdblocks.push(match[1], match[2]);
+		});
+
+		if (mtdblocks.length) {
 			o = s.option(form.SectionValue, 'actions', form.NamedSection, 'actions', 'actions', _('Save mtdblock contents'), _('Click "Save mtdblock" to download specified mtdblock file. (NOTE: THIS FEATURE IS FOR PROFESSIONALS! )'));
 			ss = o.subsection;
 
 			o = ss.option(form.ListValue, 'mtdselect', _('Choose mtdblock'));
-			procmtd.split(/\n/).forEach(function(ln) {
-				var match = ln.match(/^mtd(\d+): .+ "(.+?)"$/);
-				if (match)
-					o.value(match[1], match[2]);
-			});
+
+			for (var i = 0; i < mtdblocks.length; i += 2)
+				o.value(mtdblocks[i], mtdblocks[i+1]);
 
 			o = ss.option(form.Button, 'mtddownload', _('Download mtdblock'));
 			o.inputstyle = 'action important';
@@ -569,7 +430,8 @@ return L.view.extend({
 					node.appendChild(E('div', { 'class': 'cbi-page-actions' }, [
 						E('button', {
 							'class': 'cbi-button cbi-button-save',
-							'click': L.ui.createHandlerFn(view, 'handleBackupSave', this.map)
+							'click': ui.createHandlerFn(view, 'handleBackupSave', this.map),
+							'disabled': isReadonlyView || null
 						}, [ _('Save') ])
 					]));
 
@@ -586,7 +448,7 @@ return L.view.extend({
 		o.forcewrite = true;
 		o.rows = 30;
 		o.load = function(section_id) {
-			return callFileRead('/etc/sysupgrade.conf');
+			return L.resolveDefault(fs.read('/etc/sysupgrade.conf'), '');
 		};
 
 

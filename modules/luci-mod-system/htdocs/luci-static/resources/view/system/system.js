@@ -1,4 +1,7 @@
 'use strict';
+'require view';
+'require poll';
+'require ui';
 'require uci';
 'require rpc';
 'require form';
@@ -47,33 +50,35 @@ callTimezone = rpc.declare({
 CBILocalTime = form.DummyValue.extend({
 	renderWidget: function(section_id, option_id, cfgvalue) {
 		return E([], [
-			E('span', {}, [
-				E('input', {
-					'id': 'localtime',
-					'type': 'text',
-					'readonly': true,
-					'value': new Date(cfgvalue * 1000).toLocaleString()
-				})
-			]),
-			' ',
-			E('button', {
-				'class': 'cbi-button cbi-button-apply',
-				'click': L.ui.createHandlerFn(this, function() {
-					return callSetLocaltime(Math.floor(Date.now() / 1000));
-				})
-			}, _('Sync with browser')),
-			' ',
-			this.ntpd_support ? E('button', {
-				'class': 'cbi-button cbi-button-apply',
-				'click': L.ui.createHandlerFn(this, function() {
-					return callInitAction('sysntpd', 'restart');
-				})
-			}, _('Sync with NTP-Server')) : ''
+			E('input', {
+				'id': 'localtime',
+				'type': 'text',
+				'readonly': true,
+				'value': new Date(cfgvalue * 1000).toLocaleString()
+			}),
+			E('br'),
+			E('span', { 'class': 'control-group' }, [
+				E('button', {
+					'class': 'cbi-button cbi-button-apply',
+					'click': ui.createHandlerFn(this, function() {
+						return callSetLocaltime(Math.floor(Date.now() / 1000));
+					}),
+					'disabled': (this.readonly != null) ? this.readonly : this.map.readonly
+				}, _('Sync with browser')),
+				' ',
+				this.ntpd_support ? E('button', {
+					'class': 'cbi-button cbi-button-apply',
+					'click': ui.createHandlerFn(this, function() {
+						return callInitAction('sysntpd', 'restart');
+					}),
+					'disabled': (this.readonly != null) ? this.readonly : this.map.readonly
+				}, _('Sync with NTP-Server')) : ''
+			])
 		]);
 	},
 });
 
-return L.view.extend({
+return view.extend({
 	load: function() {
 		return Promise.all([
 			callInitList('sysntpd'),
@@ -141,7 +146,7 @@ return L.view.extend({
 		o = s.taboption('logging', form.Value, 'log_ip', _('External system log server'))
 		o.optional    = true
 		o.placeholder = '0.0.0.0'
-		o.datatype    = 'ipaddr'
+		o.datatype    = 'host'
 
 		o = s.taboption('logging', form.Value, 'log_port', _('External system log server port'))
 		o.optional    = true
@@ -186,7 +191,7 @@ return L.view.extend({
 
 			o = s.taboption('zram', form.ListValue, 'zram_comp_algo', _('ZRam Compression Algorithm'));
 			o.optional    = true;
-			o.placeholder = 'lzo';
+			o.default     = 'lzo';
 			o.value('lzo', 'lzo');
 			o.value('lz4', 'lz4');
 			o.value('deflate', 'deflate');
@@ -276,7 +281,7 @@ return L.view.extend({
 		}
 
 		return m.render().then(function(mapEl) {
-			L.Poll.add(function() {
+			poll.add(function() {
 				return callGetLocaltime().then(function(t) {
 					mapEl.querySelector('#localtime').value = new Date(t * 1000).toLocaleString();
 				});

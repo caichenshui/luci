@@ -3,15 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-28 02:08+0200\n"
-"PO-Revision-Date: 2012-03-18 16:25+0200\n"
-"Last-Translator: Vasilis <acinonyx@openwrt.gr>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-04-25 16:36+0000\n"
+"Last-Translator: george k <norhorn@gmail.com>\n"
+"Language-Team: Greek <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationstinyproxy/el/>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.2-dev\n"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:219
 msgid ""
@@ -88,9 +89,9 @@ msgstr ""
 "Μπορεί να είναι μια IP διεύθυνση ή εύρος, ένα όνομα τομέα ή \".\" για "
 "οποιοδήποτε σύστημα χωρίς όνομα τομέα"
 
-#: applications/luci-app-tinyproxy/luasrc/controller/tinyproxy.lua:14
+#: applications/luci-app-tinyproxy/root/usr/share/luci/menu.d/luci-app-tinyproxy.json:23
 msgid "Configuration"
-msgstr ""
+msgstr "Διαμόρφωση"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:164
 msgid "Connection timeout"
@@ -136,6 +137,10 @@ msgstr "Φιλτράρισμα και λίστες ελέγχου πρόσβασ
 msgid "General settings"
 msgstr "Γενικές ρυθμίσεις"
 
+#: applications/luci-app-tinyproxy/root/usr/share/rpcd/acl.d/luci-app-tinyproxy.json:3
+msgid "Grant UCI access for luci-app-tinyproxy"
+msgstr ""
+
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:97
 msgid "Group"
 msgstr "Ομάδα"
@@ -176,7 +181,7 @@ msgstr ""
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:73
 msgid "Log file"
-msgstr ""
+msgstr "Αρχείο καταγραφής"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:74
 msgid "Log file to use for dumping messages"
@@ -301,16 +306,16 @@ msgstr ""
 msgid "Statistics page"
 msgstr ""
 
-#: applications/luci-app-tinyproxy/luasrc/controller/tinyproxy.lua:13
+#: applications/luci-app-tinyproxy/root/usr/share/luci/menu.d/luci-app-tinyproxy.json:14
 msgid "Status"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:225
 msgid "Target host"
 msgstr ""
 
-#: applications/luci-app-tinyproxy/luasrc/controller/tinyproxy.lua:12
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:5
+#: applications/luci-app-tinyproxy/root/usr/share/luci/menu.d/luci-app-tinyproxy.json:3
 msgid "Tinyproxy"
 msgstr ""
 

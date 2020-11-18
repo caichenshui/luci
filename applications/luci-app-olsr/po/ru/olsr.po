@@ -1,19 +1,20 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: LuCI: olsr\n"
 "POT-Creation-Date: 2013-09-06 09:58+0200\n"
-"PO-Revision-Date: 2018-01-25 22:45+0300\n"
-"Language-Team: http://cyber-place.ru\n"
-"MIME-Version: 1.0\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
-"Last-Translator: Vladimir aka sunny <picfun@ya.ru>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || "
-"n%100>=20) ? 1 : 2);\n"
+"PO-Revision-Date: 2020-06-07 15:48+0000\n"
+"Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationsolsr/ru/>\n"
 "Language: ru\n"
-"Project-Info: Это технический перевод, не дословный. Главное-удобный русский интерфейс, все "
-"проверялось в графическом режиме, совместим с другими apps\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.1-dev\n"
+"Project-Info: Это технический перевод, не дословный. Главное-удобный русский "
+"интерфейс, все проверялось в графическом режиме, совместим с другими apps\n"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/mid.htm:13
 msgid "Active MID announcements"
@@ -39,7 +40,7 @@ msgstr "Разрешить шлюзы с NAT"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:147
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:141
-msgid "Allow the selection of an outgoing ipv4 gateway with NAT"
+msgid "Allow the selection of an outgoing IPv4 gateway with NAT"
 msgstr "Разрешить выбор исходящего IPv4 шлюза с NAT"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:155
@@ -84,7 +85,7 @@ msgstr "Допускается только IPv6 адрес или 'по умо�
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/overview.htm:198
 msgid "Configuration"
-msgstr "Настройка config файла"
+msgstr "Конфигурация"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/overview.htm:56
 msgid ""
@@ -96,11 +97,11 @@ msgstr ""
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:24
 msgid "Device"
-msgstr ""
+msgstr "Устройство"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:75
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:76
 msgid "Display"
-msgstr "Показать состояние"
+msgstr "Отобразить"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:60
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:112
@@ -161,8 +162,8 @@ msgstr "Метрика FIB"
 msgid ""
 "FIBMetric controls the metric value of the host-routes OLSRd sets. \"flat\" "
 "means that the metric value is always 2. This is the preferred value because "
-"it helps the linux kernel routing to clean up older routes. \"correct\" uses "
-"the hopcount as the metric value. \"approx\" use the hopcount as the metric "
+"it helps the Linux kernel routing to clean up older routes. \"correct\" uses "
+"the hopcount as the metric value. \"approx\" uses the hopcount as the metric "
 "value too, but does only update the hopcount if the nexthop changes too. "
 "Default is \"flat\"."
 msgstr ""
@@ -178,7 +179,7 @@ msgstr ""
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:106
 msgid "Fisheye mechanism for TCs (checked means on). Default is \"on\""
 msgstr ""
-"Механизм 'fisheye' для TC-ов (средство проверки). По умолчанию 'включено'."
+"Механизм 'fisheye' для TC-ов (средство проверки). По умолчанию 'включено'"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:55
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:107
@@ -207,19 +208,23 @@ msgstr "Хорошо (2 < ETX < 4)"
 msgid "Good (30 > SNR > 20)"
 msgstr "Хорошо (30 > SNR > 20)"
 
+#: applications/luci-app-olsr/root/usr/share/rpcd/acl.d/luci-app-olsr.json:3
+msgid "Grant UCI access for luci-app-olsr"
+msgstr "Предоставить UCI доступ для luci-app-olsr"
+
 #: applications/luci-app-olsr/luasrc/view/status-olsr/legend.htm:8
 #: applications/luci-app-olsr/luasrc/view/status-olsr/legend.htm:17
 msgid "Green"
 msgstr "Зеленый"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:53
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:54
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:402
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:383
 #: applications/luci-app-olsr/luasrc/view/status-olsr/overview.htm:178
 msgid "HNA"
 msgstr "HNA"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr4.lua:24
+#: applications/luci-app-olsr/luasrc/controller/olsr4.lua:25
 msgid "HNA Announcements"
 msgstr "Объявления HNA"
 
@@ -237,7 +242,7 @@ msgstr "Интервал HNA"
 msgid "HNA validity time"
 msgstr "Время действия HNA"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr6.lua:24
+#: applications/luci-app-olsr/luasrc/controller/olsr6.lua:25
 msgid "HNA6 Announcements"
 msgstr "Объявления HNA6"
 
@@ -291,7 +296,7 @@ msgstr "Имя хоста"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdhna.lua:8
 msgid ""
-"Hosts in a OLSR routed network can announce connecitivity to external "
+"Hosts in an OLSR routed network can announce connectivity to external "
 "networks using HNA messages."
 msgstr ""
 "Хосты в маршрутизируемой сети OLSR могут извещать о подключении к внешним "
@@ -299,7 +304,7 @@ msgstr ""
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdhna6.lua:7
 msgid ""
-"Hosts in a OLSR routed network can announce connecitivity to external "
+"Hosts in an OLSR routed network can announce connectivity to external "
 "networks using HNA6 messages."
 msgstr ""
 "Хосты в маршрутизируемой сети OLSR могут извещать о подключении к внешним "
@@ -314,14 +319,14 @@ msgid ""
 msgstr ""
 "Гистерезис для авто определения канала (только для метрики кол-ва "
 "переходов). Гистерезис увеличивает надёжность канала, но вносит задержку в "
-"регистрацию соседних устройств. По умолчанию 'да'."
+"регистрацию соседних устройств. По умолчанию 'да'"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:223
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:217
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface.lua:32
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface6.lua:32
 msgid "IP Addresses"
-msgstr "IP-Адреса"
+msgstr "IP-адреса"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:48
 msgid ""
@@ -339,7 +344,7 @@ msgstr "IPv4"
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:278
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface.lua:103
 msgid "IPv4 broadcast"
-msgstr "Широковещательный<br />IPv4-адрес"
+msgstr "Широковещательный IPv4-адрес"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:279
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface.lua:104
@@ -460,15 +465,15 @@ msgstr "Интерфейс"
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface.lua:52
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface6.lua:52
 msgid ""
-"Interface Mode is used to prevent unnecessary packet forwarding on switched "
-"ethernet interfaces. valid Modes are \"mesh\" and \"ether\". Default is "
+"Interface mode is used to prevent unnecessary packet forwarding on switched "
+"ethernet interfaces. Valid modes are \"mesh\" and \"ether\". Default is "
 "\"mesh\"."
 msgstr ""
 "Режим интерфейса используется для предотвращения ненужных перенаправлений на "
 "коммутируемых Ethernet-интерфейсах. Возможные значения режима: 'mesh' и "
 "'ether'. По умолчанию 'mesh'."
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:70
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:71
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:354
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:335
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:14
@@ -581,7 +586,7 @@ msgid ""
 msgstr ""
 "Коэффициент старения LQ (только для уровня LQ, равного 2).<br />Параметр "
 "подстройки для etx_float и etx_fpm.<br />Чем меньше значение, тем меньше "
-"изменения значения ETX.<br />Диапазон допустимых значений от '0.0' до '1.0'."
+"изменения значения ETX.<br />Диапазон допустимых значений от '0.0' до '1.0'"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:97
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:91
@@ -598,7 +603,7 @@ msgstr ""
 "что и etx_float, но с целочисленной арифметикой.<br /><b>etx_ff</b> : ETX "
 "freifunk, использует весь трафик OLSR для расчета ETX.<br /><b>etx_ffeth</"
 "b>: несовместимый вариант etx_ff, разрешающий Ethernet-соединения с ETX 0.1."
-"<br />По умолчанию 'etx_ff'."
+"<br />По умолчанию 'etx_ff'"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:83
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:77
@@ -609,7 +614,7 @@ msgid ""
 msgstr ""
 "Переключатель уровня LQ между маршрутизацией по кол-ву переходов и ETX.<br /"
 "><b>0</b> = не использовать LQ<br /><b>2</b> = использовать LQ для выбора "
-"MPR и маршрутизации<br />По умолчанию '2'."
+"MPR и маршрутизации<br />По умолчанию '2'"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:245
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:239
@@ -631,7 +636,7 @@ msgstr "Общее кол-во соединений"
 msgid "Local interface IP"
 msgstr "IP-адрес локального интерфейса"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:58
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:59
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:395
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:376
 msgid "MID"
@@ -690,10 +695,10 @@ msgid ""
 ">reduce LQ to 192.168.0.1 by half: 192.168.0.1 0.5<br />reduce LQ to all "
 "nodes on this interface by 20%: default 0.8"
 msgstr ""
-"Умножить маршруты на указанный коэффициент в пределах от '0.01' до '1'.<br /"
-">Данный коэффициент используется только в случае, если LQ уровень > 0.<br /"
-">Примеры:<br />уменьшить LQ для 192.168.0.1 на половину: 192.168.0.1 '0.5'."
-"<br />уменьшить LQ для всех узлов на данном интерфейсе на 20%: default '0.8'."
+"Умножить маршруты на указанный коэффициент в пределах от '0.01' до '1'. "
+"Данный коэффициент используется только в случае, если LQ уровень > 0. "
+"Примеры:<br />уменьшить LQ для 192.168.0.1 на половину: 192.168.0.1 '0.5'."
+"<br />уменьшить LQ для всех узлов на данном интерфейсе на 20%: default '0.8'"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:240
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdiface6.lua:71
@@ -707,7 +712,7 @@ msgstr ""
 ">Данный коэффициент используется только в случае, если LQ уровень > 0. <br /"
 ">Примеры:<br />уменьшить LQ для fd91:662e:3c58::1 на половину: "
 "fd91:662e:3c58::1 '0.5'.<br />уменьшить LQ для всех узлов на данном "
-"интерфейсе на 20%: default '0.8'."
+"интерфейсе на 20%: default '0.8'"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:201
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:195
@@ -727,7 +732,7 @@ msgstr "Соседние узлы"
 msgid "Neighbour IP"
 msgstr "Соседние IP-адреса"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:37
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:38
 msgid "Neighbours"
 msgstr "Соседние узлы"
 
@@ -816,7 +821,7 @@ msgstr "Оранжевый"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/overview.htm:157
 msgid "Overview"
-msgstr "Главное меню"
+msgstr "Обзор"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/hna.htm:87
 msgid "Overview of currently active OLSR host net announcements"
@@ -851,8 +856,8 @@ msgstr "Обзор смарт шлюзов в этой сети"
 msgid "Plugin configuration"
 msgstr "Настройка плагинов"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr4.lua:29
-#: applications/luci-app-olsr/luasrc/controller/olsr6.lua:29
+#: applications/luci-app-olsr/luasrc/controller/olsr4.lua:30
+#: applications/luci-app-olsr/luasrc/controller/olsr6.lua:30
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins.lua:240
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrdplugins6.lua:240
 msgid "Plugins"
@@ -900,7 +905,7 @@ msgstr ""
 "случае загрузка страниц состояния может происходить очень медленно.<br />В "
 "этом случае отключите ее здесь."
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:43
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:44
 msgid "Routes"
 msgstr "Маршруты"
 
@@ -911,7 +916,7 @@ msgstr "Вторичные OLSR интерфейсы"
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:56
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:108
 msgid "Selected"
-msgstr ""
+msgstr "Выбрано"
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:133
 msgid ""
@@ -946,7 +951,7 @@ msgstr "Показать IPv6"
 msgid "Signal Noise Ratio in dB"
 msgstr "Коэффициент шума сигнала в дБ"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:64
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:65
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:44
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:44
 msgid "SmartGW"
@@ -1038,8 +1043,8 @@ msgstr ""
 "Демон OLSRd реализует поддержку протокола OLSR (Optimized Link State "
 "Routing), позволяя осуществлять маршрутизацию Mesh сетей для любого сетевого "
 "оборудования. OLSRd может работать на любом Wi-Fi-адаптере или устройстве "
-"Ethernet с поддержкой режима ad-hoc.<br />Более подробную информацию можно "
-"найти на <a href='http://www.olsr.org'>olsrd.org</a>."
+"Ethernet с поддержкой режима ad-hoc. Более подробную информацию можно найти "
+"на <a href='http://www.olsr.org'>olsrd.org</a>."
 
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd.lua:194
 #: applications/luci-app-olsr/luasrc/model/cbi/olsr/olsrd6.lua:188
@@ -1085,7 +1090,7 @@ msgstr ""
 msgid "Timing and Validity"
 msgstr "Время и срок действия"
 
-#: applications/luci-app-olsr/luasrc/controller/olsr.lua:48
+#: applications/luci-app-olsr/luasrc/controller/olsr.lua:49
 msgid "Topology"
 msgstr "Топология"
 
@@ -1207,12 +1212,12 @@ msgstr "Желтый"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:38
 msgid "down"
-msgstr ""
+msgstr "вниз"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:30
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:134
-msgid "infinate"
-msgstr ""
+msgid "infinite"
+msgstr "бесконечно"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:40
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:29
@@ -1226,7 +1231,7 @@ msgstr "нет"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:38
 msgid "up"
-msgstr ""
+msgstr "вверх"
 
 #: applications/luci-app-olsr/luasrc/view/status-olsr/interfaces.htm:40
 #: applications/luci-app-olsr/luasrc/view/status-olsr/smartgw.htm:29

@@ -1,4 +1,7 @@
 'use strict';
+'require view';
+'require dom';
+'require ui';
 'require form';
 'require rpc';
 
@@ -16,7 +19,7 @@ var callSetPassword = rpc.declare({
 	expect: { result: false }
 });
 
-return L.view.extend({
+return view.extend({
 	checkPassword: function(section_id, value) {
 		var strength = document.querySelector('.cbi-value-description'),
 		    strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g"),
@@ -41,6 +44,8 @@ return L.view.extend({
 		var m, s, o;
 
 		m = new form.JSONMap(formData, _('Router Password'), _('Changes the administrator password for accessing the device'));
+		m.readonly = !L.hasViewPermission();
+
 		s = m.section(form.NamedSection, 'password', 'password');
 
 		o = s.option(form.Value, 'pw1', _('Password'));
@@ -52,7 +57,7 @@ return L.view.extend({
 		o.renderWidget = function(/* ... */) {
 			var node = form.Value.prototype.renderWidget.apply(this, arguments);
 
-			node.childNodes[1].addEventListener('keydown', function(ev) {
+			node.querySelector('input').addEventListener('keydown', function(ev) {
 				if (ev.keyCode == 13 && !ev.currentTarget.classList.contains('cbi-input-invalid'))
 					document.querySelector('.cbi-button-save').click();
 			});
@@ -66,25 +71,25 @@ return L.view.extend({
 	handleSave: function() {
 		var map = document.querySelector('.cbi-map');
 
-		return L.dom.callClassMethod(map, 'save').then(function() {
+		return dom.callClassMethod(map, 'save').then(function() {
 			if (formData.password.pw1 == null || formData.password.pw1.length == 0)
 				return;
 
 			if (formData.password.pw1 != formData.password.pw2) {
-				L.ui.addNotification(null, E('p', _('Given password confirmation did not match, password not changed!')), 'danger');
+				ui.addNotification(null, E('p', _('Given password confirmation did not match, password not changed!')), 'danger');
 				return;
 			}
 
 			return callSetPassword('root', formData.password.pw1).then(function(success) {
 				if (success)
-					L.ui.addNotification(null, E('p', _('The system password has been successfully changed.')), 'info');
+					ui.addNotification(null, E('p', _('The system password has been successfully changed.')), 'info');
 				else
-					L.ui.addNotification(null, E('p', _('Failed to change the system password.')), 'danger');
+					ui.addNotification(null, E('p', _('Failed to change the system password.')), 'danger');
 
 				formData.password.pw1 = null;
 				formData.password.pw2 = null;
 
-				L.dom.callClassMethod(map, 'render');
+				dom.callClassMethod(map, 'render');
 			});
 		});
 	},

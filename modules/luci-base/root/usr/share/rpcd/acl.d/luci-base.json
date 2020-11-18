@@ -8,81 +8,39 @@
 		}
 	},
 
-	"uci-access": {
-		"description": "Grant uci write access to all configurations",
-		"read": {
-			"uci": [ "*" ]
-		},
-		"write": {
-			"uci": [ "*" ]
-		}
-	},
-	"luci-access": {
+	"luci-base": {
 		"description": "Grant access to basic LuCI procedures",
 		"read": {
-			"cgi-io": [ "backup", "download" ],
 			"file": {
 				"/": [ "list" ],
-				"/*": [ "list" ],
-				"/dev/mtdblock*": [ "read" ],
-				"/etc/crontabs/root": [ "read" ],
-				"/etc/dropbear/authorized_keys": [ "read" ],
-				"/etc/filesystems": [ "read" ],
-				"/etc/rc.local": [ "read" ],
-				"/etc/sysupgrade.conf": [ "read" ],
-				"/proc/filesystems": [ "read" ],
-				"/proc/mtd": [ "read" ],
-				"/proc/partitions": [ "read" ],
-				"/proc/sys/kernel/hostname": [ "read" ],
-				"/sys/devices/virtual/ubi/*/name": [ "read" ]
+				"/*": [ "list" ]
 			},
 			"ubus": {
-				"file": [ "list", "read", "stat" ],
-				"iwinfo": [ "assoclist", "freqlist", "txpowerlist", "countrylist" ],
-				"luci": [ "getBoardJSON", "getDUIDHints", "getHostHints", "getIfaddrs", "getInitList", "getLocaltime", "getTimezones", "getDHCPLeases", "getLEDs", "getNetworkDevices", "getUSBDevices", "getWirelessDevices", "getSwconfigFeatures", "getSwconfigPortState", "getBlockDevices", "getMountPoints" ],
-				"network.device": [ "status" ],
-				"network.interface": [ "dump" ],
-				"network": [ "get_proto_handlers" ],
-				"system": [ "validate_firmware_image" ],
+				"file": [ "list" ],
 				"uci": [ "changes", "get" ]
-			},
-			"uci": [ "*" ]
+			}
 		},
 		"write": {
 			"cgi-io": [ "upload" ],
 			"file": {
-				"/etc/crontabs/root": [ "write" ],
-				"/etc/dropbear/authorized_keys": [ "write" ],
-				"/etc/luci-uploads/*": [ "write" ],
-				"/etc/rc.local": [ "write" ],
-				"/etc/sysupgrade.conf": [ "write" ],
-				"/sbin/block": [ "exec" ],
-				"/sbin/firstboot": [ "exec" ],
-				"/sbin/reboot": [ "exec" ],
-				"/sbin/sysupgrade": [ "exec" ],
-				"/bin/tar": [ "exec" ],
-				"/tmp/backup.tar.gz": [ "write" ],
-				"/tmp/firmware.bin": [ "write" ]
+				"/etc/luci-uploads/*": [ "write" ]
 			},
 			"ubus": {
-				"file": [ "write", "remove", "exec" ],
-				"iwinfo": [ "scan" ],
-				"luci": [ "setInitAction", "setLocaltime", "setPassword", "setBlockDetect", "setUmount" ],
-				"uci": [ "add", "apply", "confirm", "delete", "order", "set", "rename" ]
-			},
-			"uci": [ "*" ]
+				"file": [ "remove" ],
+				"uci": [ "add", "apply", "confirm", "delete", "order", "rename", "set" ]
+			}
 		}
 	},
-	"luci-app-firewall": {
-		"description": "Grant access to firewall procedures",
+
+	"luci-base-network-status": {
+		"description": "Grant access to network status information",
 		"read": {
 			"ubus": {
-				"luci": [ "getConntrackHelpers" ]
+				"luci-rpc": [ "getBoardJSON", "getHostHints", "getNetworkDevices", "getWirelessDevices" ],
+				"network": [ "get_proto_handlers" ],
+				"network.interface": [ "dump" ]
 			},
-			"uci": [ "firewall" ]
-		},
-		"write": {
-			"uci": [ "firewall" ]
+			"uci": [ "luci", "network", "wireless" ]
 		}
 	}
 }

@@ -6,12 +6,13 @@ local fs = require("nixio.fs")
 local knownParams = {
 	--
 	--Widget
-	--	Name
+	--	ID
+	--	Display name
 	--	Default(s)
 	--	Description
 	--	Option(s)
 
-	{ "Service", {
+	{ "service", translate("Service"), {
 	-- initialisation and daemon options
 		{ ListValue,
 			"verb",
@@ -128,7 +129,7 @@ local knownParams = {
 		{ Value,
 			"ipchange",
 			"/usr/bin/ovpn-ipchange",
-			translate("Execute shell command on remote ip change"),
+			translate("Execute shell command on remote IP change"),
 			{ mode="p2p" } },
 		{ DynamicList,
 			"setenv",
@@ -164,7 +165,7 @@ local knownParams = {
 			translate("Enable a compression algorithm") },
 	} },
 
-	{ "Networking", {
+	{ "networking", translate("Networking"), {
 	-- socket config
 		{ ListValue,
 			"mode",
@@ -173,7 +174,7 @@ local knownParams = {
 		{ Value,
 			"local",
 			"0.0.0.0",
-			translate("Local host name or ip address") },
+			translate("Local host name or IP address") },
 		{ Value,
 			"port",
 			1194,
@@ -364,7 +365,7 @@ local knownParams = {
 			{dev_type="tun" } },
 	} },
 
-	{ "VPN", {
+	{ "vpn", translate("VPN"), {
 		{ Value,
 			"server",
 			"10.200.200.0 255.255.255.0",
@@ -497,8 +498,7 @@ local knownParams = {
 		{ DynamicList,
 			"remote",
 			"1.2.3.4",
-			translate("Remote host name or ip address"),
-			{ client="1" } },
+			translate("Remote host name or IP address") },
 		{ Flag,
 			"remote_random",
 			0,
@@ -561,7 +561,7 @@ local knownParams = {
 			translate("Specify whether the client is required to supply a valid certificate") },
 	} },
 
-	{ "Cryptography", {
+	{ "cryptography", translate("Cryptography"), {
 		{ FileUpload,
 			"secret",
 			"/etc/openvpn/secret.key",
@@ -659,7 +659,7 @@ local knownParams = {
 		{ FileUpload,
 			"dh",
 			"/etc/easy-rsa/keys/dh1024.pem",
-			translate("Diffie Hellman parameters") },
+			translate("Diffie-Hellman parameters") },
 		{ FileUpload,
 			"cert",
 			"/etc/easy-rsa/keys/some-client.crt",
@@ -679,25 +679,27 @@ local knownParams = {
 		{ DynamicList,
 			"tls_cipher",
 			{
-				"DHE-RSA-AES256-SHA",
-				"DHE-DSS-AES256-SHA",
-				"AES256-SHA",
-				"EDH-RSA-DES-CBC3-SHA",
-				"EDH-DSS-DES-CBC3-SHA",
-				"DES-CBC3-SHA",
-				"DHE-RSA-AES128-SHA",
-				"DHE-DSS-AES128-SHA",
-				"AES128-SHA",
-				"RC4-SHA",
-				"RC4-MD5",
-				"EDH-RSA-DES-CBC-SHA",
-				"EDH-DSS-DES-CBC-SHA",
-				"DES-CBC-SHA",
-				"EXP-EDH-RSA-DES-CBC-SHA",
-				"EXP-EDH-DSS-DES-CBC-SHA",
-				"EXP-DES-CBC-SHA",
-				"EXP-RC2-CBC-MD5",
-				"EXP-RC4-MD5"
+				"TLS-ECDHE-ECDSA-WITH-AES-256-GCM-SHA384",
+				"TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384",
+				"TLS-DHE-RSA-WITH-AES-256-GCM-SHA384",
+				"TLS-ECDHE-ECDSA-WITH-CHACHA20-POLY1305-SHA256",
+				"TLS-ECDHE-RSA-WITH-CHACHA20-POLY1305-SHA256",
+				"TLS-DHE-RSA-WITH-CHACHA20-POLY1305-SHA256",
+				"TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256",
+				"TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256",
+				"TLS-DHE-RSA-WITH-AES-128-GCM-SHA256",
+				"TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA384",
+				"TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA384",
+				"TLS-DHE-RSA-WITH-AES-256-CBC-SHA256",
+				"TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA256",
+				"TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA256",
+				"TLS-DHE-RSA-WITH-AES-128-CBC-SHA256",
+				"TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA",
+				"TLS-ECDHE-RSA-WITH-AES-256-CBC-SHA",
+				"TLS-DHE-RSA-WITH-AES-256-CBC-SHA",
+				"TLS-ECDHE-ECDSA-WITH-AES-128-CBC-SHA",
+				"TLS-ECDHE-RSA-WITH-AES-128-CBC-SHA",
+				"TLS-DHE-RSA-WITH-AES-128-CBC-SHA"
 			},
 			translate("TLS cipher") },
 		{ DynamicList,
@@ -798,6 +800,7 @@ local knownParams = {
 
 local cts = { }
 local params = { }
+local title = ""
 
 local m = Map("openvpn")
 m.redirect = luci.dispatcher.build_url("admin", "vpn", "openvpn")
@@ -807,22 +810,23 @@ local p = m:section( SimpleSection )
 p.template = "openvpn/pageswitch"
 p.mode     = "advanced"
 p.instance = arg[1]
-p.category = arg[2] or "Service"
+p.category = arg[2] or knownParams[1][1]
 
 for _, c in ipairs(knownParams) do
-	cts[#cts+1] = c[1]
-	if c[1] == p.category then params = c[2] end
+	cts[#cts+1] = { id = c[1], title = c[2] }
+	if c[1] == p.category then
+		title = c[2]
+		params = c[3]
+	end
 end
 
 p.categories = cts
 
 
 local s = m:section(
-	NamedSection, arg[1], "openvpn",
-	translate("%s" % arg[2])
+	NamedSection, arg[1], "openvpn", title
 )
 
-s.title     = translate("%s" % arg[2])
 s.addremove = false
 s.anonymous = true
 
@@ -838,6 +842,8 @@ for _, option in ipairs(params) do
 	if option[1] == DummyValue then
 		o.value = option[3]
 	elseif option[1] == FileUpload then
+
+		o.initial_directory = "/etc/openvpn"
 
 		function o.cfgvalue(self, section)
 			local cfg_val = AbstractValue.cfgvalue(self, section)
@@ -863,7 +869,7 @@ for _, option in ipairs(params) do
 		function o.remove(self, section)
 			local cfg_val = AbstractValue.cfgvalue(self, section)
 			local txt_val = luci.http.formvalue("cbid."..self.map.config.."."..section.."."..self.option..".textbox")
-			
+
 			if cfg_val and fs.access(cfg_val) and txt_val == "" then
 				fs.unlink(cfg_val)
 			end

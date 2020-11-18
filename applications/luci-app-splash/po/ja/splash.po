@@ -1,3 +1,23 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-17 09:01+0200\n"
+"PO-Revision-Date: 2020-07-26 01:23+0000\n"
+"Last-Translator: Satoru Yoshida <ramat@ram.ne.jp>\n"
+"Language-Team: Japanese <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationssplash/ja/>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.2-dev\n"
+
+#: applications/luci-app-splash/luasrc/view/splash/splash.htm:53
+msgid "%s with the operator of this access point."
+msgstr ""
+
 #: applications/luci-app-splash/luasrc/view/splash/splash.htm:65
 #: applications/luci-app-splash/luasrc/view/splash_splash/splash.htm:13
 msgid "Accept"
@@ -46,7 +66,7 @@ msgstr ""
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:62
 msgid "Blacklist"
-msgstr ""
+msgstr "ブラックリスト"
 
 #: applications/luci-app-splash/luasrc/view/splash/blocked.htm:12
 msgid "Blocked"
@@ -95,8 +115,7 @@ msgid "Clients upload speed is limited to this value (kbyte/s)"
 msgstr ""
 
 #: applications/luci-app-splash/luasrc/view/splash/blocked.htm:15
-#: applications/luci-app-splash/luasrc/view/splash/splash.htm:54
-msgid "Contact"
+msgid "Contact the owner"
 msgstr ""
 
 #: applications/luci-app-splash/luasrc/view/splash_splash/splash.htm:12
@@ -131,20 +150,24 @@ msgstr ""
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:7
 msgid "General"
+msgstr "一般設定"
+
+#: applications/luci-app-splash/luasrc/view/splash/splash.htm:54
+msgid "Get in contact"
 msgstr ""
 
-#: applications/luci-app-splash/luasrc/view/splash/splash.htm:53
-msgid "Get in %s with the operator of this access point."
+#: applications/luci-app-splash/root/usr/share/rpcd/acl.d/luci-app-splash.json:3
+msgid "Grant UCI access for luci-app-splash"
 msgstr ""
 
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:205
 msgid "Hostname"
-msgstr ""
+msgstr "ホスト名"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:76
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:206
 msgid "IP Address"
-msgstr ""
+msgstr "IP アドレス"
 
 #: applications/luci-app-splash/luasrc/view/splash/splash.htm:98
 msgid ""
@@ -165,7 +188,7 @@ msgstr ""
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:21
 msgid "Interfaces"
-msgstr ""
+msgstr "インターフェース"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:21
 msgid "Interfaces that are used for Splash."
@@ -189,7 +212,7 @@ msgstr ""
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:68
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:207
 msgid "MAC Address"
-msgstr ""
+msgstr "MAC アドレス"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:63
 msgid "MAC addresses in this list are blocked."
@@ -203,11 +226,11 @@ msgstr ""
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:77
 msgid "Netmask"
-msgstr ""
+msgstr "ネットマスク"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:37
 msgid "Network"
-msgstr ""
+msgstr "ネットワーク"
 
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:147
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:261
@@ -222,7 +245,7 @@ msgstr ""
 
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:210
 msgid "Policy"
-msgstr ""
+msgstr "ポリシー"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:11
 msgid "Redirect target"
@@ -235,7 +258,7 @@ msgstr ""
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:182
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:248
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:30
 msgid "Splash rules are integrated in this firewall zone"
@@ -348,7 +371,7 @@ msgstr ""
 
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:235
 msgid "expired"
-msgstr ""
+msgstr "期限切れ"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:77
 msgid "optional when using host addresses"
@@ -372,7 +395,7 @@ msgstr ""
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:230
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:231
 msgid "unknown"
-msgstr ""
+msgstr "不明"
 
 #: applications/luci-app-splash/luasrc/view/splash/splash.htm:83
 msgid "use filesharing applications on this network"

@@ -3,15 +3,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-05-26 17:57+0200\n"
-"PO-Revision-Date: 2012-11-28 10:52+0200\n"
-"Last-Translator: dunkelschunkel <dunkelschunkel@googlemail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-07-11 21:29+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationstinyproxy/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:219
 msgid ""
@@ -41,7 +42,7 @@ msgstr "Erlaubte Verbindungsports"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:47
 msgid "Bind address"
-msgstr "Serveradresse"
+msgstr "Bind-Adresse"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:149
 msgid ""
@@ -84,7 +85,7 @@ msgstr ""
 "Kann entweder eine IP-Adresse, ein Domain-Name oder \".\" für jegliche Hosts "
 "sein"
 
-#: applications/luci-app-tinyproxy/luasrc/controller/tinyproxy.lua:14
+#: applications/luci-app-tinyproxy/root/usr/share/luci/menu.d/luci-app-tinyproxy.json:23
 msgid "Configuration"
 msgstr "Konfiguration"
 
@@ -106,7 +107,7 @@ msgstr "Fehlerseite"
 
 #: applications/luci-app-tinyproxy/luasrc/view/tinyproxy_status.htm:36
 msgid "Failed to retrieve statistics from url:"
-msgstr "Empfangen der Statiken von URL fehlgeschlagen"
+msgstr "Empfangen der Statistiken von URL fehlgeschlagen:"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:148
 msgid "Filter by RegExp"
@@ -131,6 +132,10 @@ msgstr "Filterung und Zugriffsregeln"
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:11
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
+
+#: applications/luci-app-tinyproxy/root/usr/share/rpcd/acl.d/luci-app-tinyproxy.json:3
+msgid "Grant UCI access for luci-app-tinyproxy"
+msgstr "Gewähre UCI Zugriff auf luci-app-tinyproxy"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:97
 msgid "Group"
@@ -164,11 +169,11 @@ msgstr ""
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:39
 msgid "Listen address"
-msgstr "Serveradresse"
+msgstr "Listen-Adresse"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:31
 msgid "Listen port"
-msgstr "Serverport"
+msgstr "Listen-Port"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:73
 msgid "Log file"
@@ -180,7 +185,7 @@ msgstr "Gibt die Datei an, in welche Protokollausgaben geschrieben werden"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:80
 msgid "Log level"
-msgstr "Protokolllevel"
+msgstr "Protokollierungsstufe"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:81
 msgid "Logging verbosity of the Tinyproxy process"
@@ -235,11 +240,11 @@ msgstr "Anzahl zu erzeugender Leerlaufprozesse beim Start von Tinyproxy"
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:141
 msgid "Plaintext file with URLs or domains to filter. One entry per line"
 msgstr ""
-"Klartextdatei mit zu filternden URLs oder Domains. Ein Eintrag pro Zeile."
+"Klartextdatei mit zu filternden URLs oder Domains. Ein Eintrag pro Zeile"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:218
 msgid "Policy"
-msgstr "Verfahrensweise"
+msgstr "Standardregel"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:12
 msgid "Privacy settings"
@@ -314,7 +319,7 @@ msgstr "Starte Leerlaufserver"
 msgid "Statistics page"
 msgstr "Statistikseite"
 
-#: applications/luci-app-tinyproxy/luasrc/controller/tinyproxy.lua:13
+#: applications/luci-app-tinyproxy/root/usr/share/luci/menu.d/luci-app-tinyproxy.json:14
 msgid "Status"
 msgstr "Status"
 
@@ -322,8 +327,8 @@ msgstr "Status"
 msgid "Target host"
 msgstr "Zielhost"
 
-#: applications/luci-app-tinyproxy/luasrc/controller/tinyproxy.lua:12
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:5
+#: applications/luci-app-tinyproxy/root/usr/share/luci/menu.d/luci-app-tinyproxy.json:3
 msgid "Tinyproxy"
 msgstr "Tinyproxy"
 
@@ -354,7 +359,7 @@ msgstr "Nutze den Systemprotokolldienst"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:91
 msgid "User"
-msgstr "Benutzername"
+msgstr "Nutzer"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:111
 msgid "Via hostname"
@@ -369,7 +374,7 @@ msgstr "Zwischenproxy"
 msgid "Writes log messages to syslog instead of a log file"
 msgstr ""
 "Schreibt Protokolleinträge an den Protokolldienst statt in eine separate "
-"Protokolldatei."
+"Protokolldatei"
 
 #: applications/luci-app-tinyproxy/luasrc/model/cbi/tinyproxy.lua:107
 msgid "X-Tinyproxy header"

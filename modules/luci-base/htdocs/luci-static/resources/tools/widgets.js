@@ -3,6 +3,19 @@
 'require form';
 'require network';
 'require firewall';
+'require fs';
+
+function getUsers() {
+    return fs.lines('/etc/passwd').then(function(lines) {
+        return lines.map(function(line) { return line.split(/:/)[0] });
+    });
+}
+
+function getGroups() {
+    return fs.lines('/etc/group').then(function(lines) {
+        return lines.map(function(line) { return line.split(/:/)[0] });
+    });
+}
 
 var CBIZoneSelect = form.ListValue.extend({
 	__name__: 'CBI.ZoneSelect',
@@ -121,6 +134,7 @@ var CBIZoneSelect = form.ListValue.extend({
 			sort: true,
 			multiple: this.multiple,
 			optional: this.optional || this.rmempty,
+			disabled: (this.readonly != null) ? this.readonly : this.map.readonly,
 			select_placeholder: E('em', _('unspecified')),
 			display_items: this.display_size || this.size || 3,
 			dropdown_items: this.dropdown_size || this.size || 5,
@@ -375,9 +389,11 @@ var CBINetworkSelect = form.ListValue.extend({
 			sort: true,
 			multiple: this.multiple,
 			optional: this.optional || this.rmempty,
+			disabled: (this.readonly != null) ? this.readonly : this.map.readonly,
 			select_placeholder: E('em', _('unspecified')),
 			display_items: this.display_size || this.size || 3,
 			dropdown_items: this.dropdown_size || this.size || 5,
+			datatype: this.multiple ? 'list(uciname)' : 'uciname',
 			validate: L.bind(this.validate, this, section_id),
 			create: !this.nocreate,
 			create_markup: '' +
@@ -542,6 +558,7 @@ var CBIDeviceSelect = form.ListValue.extend({
 			sort: order,
 			multiple: this.multiple,
 			optional: this.optional || this.rmempty,
+			disabled: (this.readonly != null) ? this.readonly : this.map.readonly,
 			select_placeholder: E('em', _('unspecified')),
 			display_items: this.display_size || this.size || 3,
 			dropdown_items: this.dropdown_size || this.size || 5,
@@ -559,10 +576,50 @@ var CBIDeviceSelect = form.ListValue.extend({
 	},
 });
 
+var CBIUserSelect = form.ListValue.extend({
+	__name__: 'CBI.UserSelect',
+
+	load: function(section_id) {
+		return getUsers().then(L.bind(function(users) {
+			delete this.keylist;
+			delete this.vallist;
+			for (var i = 0; i < users.length; i++) {
+				this.value(users[i]);
+			}
+
+			return this.super('load', section_id);
+		}, this));
+	},
+
+	filter: function(section_id, value) {
+		return true;
+	},
+});
+
+var CBIGroupSelect = form.ListValue.extend({
+	__name__: 'CBI.GroupSelect',
+
+	load: function(section_id) {
+		return getGroups().then(L.bind(function(groups) {
+			for (var i = 0; i < groups.length; i++) {
+				this.value(groups[i]);
+			}
+
+			return this.super('load', section_id);
+		}, this));
+	},
+
+	filter: function(section_id, value) {
+		return true;
+	},
+});
+
 
 return L.Class.extend({
 	ZoneSelect: CBIZoneSelect,
 	ZoneForwards: CBIZoneForwards,
 	NetworkSelect: CBINetworkSelect,
 	DeviceSelect: CBIDeviceSelect,
+	UserSelect: CBIUserSelect,
+	GroupSelect: CBIGroupSelect,
 });

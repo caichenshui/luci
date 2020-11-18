@@ -1,12 +1,19 @@
 'use strict';
+'require view';
+'require dom';
+'require poll';
+'require fs';
+'require ui';
 'require uci';
 'require form';
 'require network';
 'require firewall';
 'require tools.widgets as widgets';
 
+var isReadonlyView = !L.hasViewPermission() || null;
+
 function count_changes(section_id) {
-	var changes = L.ui.changes.changes, n = 0;
+	var changes = ui.changes.changes, n = 0;
 
 	if (!L.isObject(changes))
 		return n;
@@ -99,7 +106,7 @@ function render_status(node, ifc, with_device) {
 		_('Error'),    errors ? errors[4] : null,
 		null, changecount ? E('a', {
 			href: '#',
-			click: L.bind(L.ui.changes.displayChanges, L.ui.changes)
+			click: L.bind(ui.changes.displayChanges, ui.changes)
 		}, _('Interface has %d pending changes').format(changecount)) : null
 	]);
 }
@@ -107,7 +114,7 @@ function render_status(node, ifc, with_device) {
 function render_modal_status(node, ifc) {
 	var dev = ifc ? (ifc.getDevice() || ifc.getL3Device() || ifc.getL3Device()) : null;
 
-	L.dom.content(node, [
+	dom.content(node, [
 		E('img', {
 			'src': L.resource('icons/%s%s.png').format(dev ? dev.getType() : 'ethernet', (dev && dev.isUp()) ? '' : '_disabled'),
 			'title': dev ? dev.getTypeI18n() : _('Not present')
@@ -138,7 +145,7 @@ function render_ifacebox_status(node, ifc) {
 	c.push(E('small', {}, ifc.isAlias() ? _('Alias of "%s"').format(ifc.isAlias())
 	                                    : (dev ? dev.getName() : E('em', _('Not present')))));
 
-	L.dom.content(node, c);
+	dom.content(node, c);
 
 	return firewall.getZoneByNetwork(ifc.getName()).then(L.bind(function(zone) {
 		this.style.backgroundColor = zone ? zone.getColor() : '#EEEEEE';
@@ -157,9 +164,50 @@ function iface_updown(up, id, ev, force) {
 	btns[0].disabled = true;
 	btns[1].disabled = true;
 
-	dsc.setAttribute(up ? 'reconnect' : 'disconnect', force ? 'force' : '');
-	L.dom.content(dsc, E('em',
-		up ? _('Interface is reconnecting...') : _('Interface is shutting down...')));
+	if (!up) {
+		L.resolveDefault(fs.exec_direct('/usr/libexec/luci-peeraddr')).then(function(res) {
+			var info = null; try { info = JSON.parse(res); } catch(e) {}
+
+			if (L.isObject(info) &&
+			    Array.isArray(info.inbound_interfaces) &&
+			    info.inbound_interfaces.filter(function(i) { return i == id })[0]) {
+
+				ui.showModal(_('Confirm disconnect'), [
+					E('p', _('You appear to be currently connected to the device via the "%h" interface. Do you really want to shut down the interface?').format(id)),
+					E('div', { 'class': 'right' }, [
+						E('button', {
+							'class': 'cbi-button cbi-button-neutral',
+							'click': function(ev) {
+								btns[1].classList.remove('spinning');
+								btns[1].disabled = false;
+								btns[0].disabled = false;
+
+								ui.hideModal();
+							}
+						}, _('Cancel')),
+						' ',
+						E('button', {
+							'class': 'cbi-button cbi-button-negative important',
+							'click': function(ev) {
+								dsc.setAttribute('disconnect', '');
+								dom.content(dsc, E('em', _('Interface is shutting down...')));
+
+								ui.hideModal();
+							}
+						}, _('Disconnect'))
+					])
+				]);
+			}
+			else {
+				dsc.setAttribute('disconnect', '');
+				dom.content(dsc, E('em', _('Interface is shutting down...')));
+			}
+		});
+	}
+	else {
+		dsc.setAttribute(up ? 'reconnect' : 'disconnect', force ? 'force' : '');
+		dom.content(dsc, E('em', up ? _('Interface is reconnecting...') : _('Interface is shutting down...')));
+	}
 }
 
 function get_netmask(s, use_cfgvalue) {
@@ -181,7 +229,7 @@ function get_netmask(s, use_cfgvalue) {
 	return mask;
 }
 
-return L.view.extend({
+return view.extend({
 	poll_status: function(map, networks) {
 		var resolveZone = null;
 
@@ -202,10 +250,10 @@ return L.view.extend({
 			    dynamic = ifc ? ifc.isDynamic() : false;
 
 			if (dsc.hasAttribute('reconnect')) {
-				L.dom.content(dsc, E('em', _('Interface is starting...')));
+				dom.content(dsc, E('em', _('Interface is starting...')));
 			}
 			else if (dsc.hasAttribute('disconnect')) {
-				L.dom.content(dsc, E('em', _('Interface is stopping...')));
+				dom.content(dsc, E('em', _('Interface is stopping...')));
 			}
 			else if (ifc.getProtocol() || uci.get('network', ifc.getName()) == null) {
 				render_status(dsc, ifc, false);
@@ -215,18 +263,18 @@ return L.view.extend({
 				if (e) e.disabled = true;
 
 				var link = L.url('admin/system/opkg') + '?query=luci-proto';
-				L.dom.content(dsc, [
+				dom.content(dsc, [
 					E('em', _('Unsupported protocol type.')), E('br'),
 					E('a', { href: link }, _('Install protocol extensions...'))
 				]);
 			}
 			else {
-				L.dom.content(dsc, E('em', _('Interface not present or not connected yet.')));
+				dom.content(dsc, E('em', _('Interface not present or not connected yet.')));
 			}
 
 			if (stat) {
 				var dev = ifc.getDevice();
-				L.dom.content(stat, [
+				dom.content(stat, [
 					E('img', {
 						'src': L.resource('icons/%s%s.png').format(dev ? dev.getType() : 'ethernet', (dev && dev.isUp()) ? '' : '_disabled'),
 						'title': dev ? dev.getTypeI18n() : _('Not present')
@@ -235,8 +283,8 @@ return L.view.extend({
 				]);
 			}
 
-			btn1.disabled = btn1.classList.contains('spinning') || btn2.classList.contains('spinning') || dynamic;
-			btn2.disabled = btn1.classList.contains('spinning') || btn2.classList.contains('spinning') || dynamic || disabled;
+			btn1.disabled = isReadonlyView || btn1.classList.contains('spinning') || btn2.classList.contains('spinning') || dynamic;
+			btn2.disabled = isReadonlyView || btn1.classList.contains('spinning') || btn2.classList.contains('spinning') || dynamic || disabled;
 		}
 
 		return Promise.all([ resolveZone, network.flushCache() ]);
@@ -293,7 +341,7 @@ return L.view.extend({
 			    disabled = net ? !net.isUp() : true,
 			    dynamic = net ? net.isDynamic() : false;
 
-			L.dom.content(tdEl.lastChild, [
+			dom.content(tdEl.lastChild, [
 				E('button', {
 					'class': 'cbi-button cbi-button-neutral reconnect',
 					'click': iface_updown.bind(this, true, section_id),
@@ -365,7 +413,7 @@ return L.view.extend({
 				o.modalonly = true;
 				o.default = o.enabled;
 
-				type = s.taboption('physical', form.Flag, 'type', _('Bridge interfaces'), _('creates a bridge over specified interface(s)'));
+				type = s.taboption('physical', form.Flag, 'type', _('Bridge interfaces'), _('Creates a bridge over specified interface(s)'));
 				type.modalonly = true;
 				type.disabled = '';
 				type.enabled = 'bridge';
@@ -440,7 +488,7 @@ return L.view.extend({
 				};
 
 				if (L.hasSystemFeature('firewall')) {
-					o = s.taboption('firewall', widgets.ZoneSelect, '_zone', _('Create / Assign firewall-zone'), _('Choose the firewall zone you want to assign to this interface. Select <em>unspecified</em> to remove the interface from the associated zone or fill out the <em>create</em> field to define a new zone and attach the interface to it.'));
+					o = s.taboption('firewall', widgets.ZoneSelect, '_zone', _('Create / Assign firewall-zone'), _('Choose the firewall zone you want to assign to this interface. Select <em>unspecified</em> to remove the interface from the associated zone or fill out the <em>custom</em> field to define a new zone and attach the interface to it.'));
 					o.network = ifc.getName();
 					o.optional = true;
 
@@ -515,7 +563,7 @@ return L.view.extend({
 							E('button', {
 								'class': 'cbi-button cbi-button-add',
 								'title': _('Setup DHCP Server'),
-								'click': L.ui.createHandlerFn(this, function(section_id, ev) {
+								'click': ui.createHandlerFn(this, function(section_id, ev) {
 									this.map.save(function() {
 										uci.add('dhcp', 'dhcp', section_id);
 										uci.set('dhcp', section_id, 'interface', section_id);
@@ -679,7 +727,7 @@ return L.view.extend({
 			proto = s2.option(form.ListValue, 'proto', _('Protocol'));
 			proto.validate = name.validate;
 
-			bridge = s2.option(form.Flag, 'type', _('Bridge interfaces'), _('creates a bridge over specified interface(s)'));
+			bridge = s2.option(form.Flag, 'type', _('Bridge interfaces'), _('Creates a bridge over specified interface(s)'));
 			bridge.modalonly = true;
 			bridge.disabled = '';
 			bridge.enabled = 'bridge';
@@ -706,35 +754,46 @@ return L.view.extend({
 			}
 
 			m2.render().then(L.bind(function(nodes) {
-				L.ui.showModal(_('Add new interface...'), [
+				ui.showModal(_('Add new interface...'), [
 					nodes,
 					E('div', { 'class': 'right' }, [
 						E('button', {
 							'class': 'btn',
-							'click': L.ui.hideModal
+							'click': ui.hideModal
 						}, _('Cancel')), ' ',
 						E('button', {
 							'class': 'cbi-button cbi-button-positive important',
-							'click': L.ui.createHandlerFn(this, function(ev) {
+							'click': ui.createHandlerFn(this, function(ev) {
 								var nameval = name.isValid('_new_') ? name.formvalue('_new_') : null,
-								    protoval = proto.isValid('_new_') ? proto.formvalue('_new_') : null;
+								    protoval = proto.isValid('_new_') ? proto.formvalue('_new_') : null,
+								    protoclass = protoval ? network.getProtocol(protoval) : null;
 
 								if (nameval == null || protoval == null || nameval == '' || protoval == '')
 									return;
 
-								return m.save(function() {
-									var section_id = uci.add('network', 'interface', nameval);
-
-									uci.set('network', section_id, 'proto', protoval);
-
-									if (ifname_single.isActive('_new_')) {
-										uci.set('network', section_id, 'ifname', ifname_single.formvalue('_new_'));
+								return protoclass.isCreateable(nameval).then(function(checkval) {
+									if (checkval != null) {
+										ui.addNotification(null,
+												E('p', _('New interface for "%s" can not be created: %s').format(protoclass.getI18n(), checkval)));
+										ui.hideModal();
+										return;
 									}
-									else if (ifname_multi.isActive('_new_')) {
-										uci.set('network', section_id, 'type', 'bridge');
-										uci.set('network', section_id, 'ifname', L.toArray(ifname_multi.formvalue('_new_')).join(' '));
-									}
-								}).then(L.bind(m.children[0].renderMoreOptionsModal, m.children[0], nameval));
+
+									return m.save(function() {
+										var section_id = uci.add('network', 'interface', nameval);
+
+										uci.set('network', section_id, 'proto', protoval);
+
+										if (ifname_single.isActive('_new_')) {
+											uci.set('network', section_id, 'ifname', ifname_single.formvalue('_new_'));
+										}
+										else if (ifname_multi.isActive('_new_')) {
+											uci.set('network', section_id, 'type', 'bridge');
+											uci.set('network', section_id, 'ifname', L.toArray(ifname_multi.formvalue('_new_')).join(' '));
+										}
+									}).then(L.bind(m.children[0].renderMoreOptionsModal, m.children[0], nameval));
+
+								});
 							})
 						}, _('Create interface'))
 					])
@@ -819,6 +878,9 @@ return L.view.extend({
 
 		o = s.option(form.Value, 'ula_prefix', _('IPv6 ULA-Prefix'));
 		o.datatype = 'cidr6';
+
+		o = s.option(form.Flag, 'packet_steering', _('Packet Steering'), _('Enable packet steering across all CPUs. May help or hinder network speed.'));
+		o.optional = true;
 
 
 		if (dslModemType != null) {
@@ -922,7 +984,7 @@ return L.view.extend({
 
 
 		return m.render().then(L.bind(function(m, nodes) {
-			L.Poll.add(L.bind(function() {
+			poll.add(L.bind(function() {
 				var section_ids = m.children[0].cfgsections(),
 				    tasks = [];
 
@@ -934,40 +996,15 @@ return L.view.extend({
 
 					if (dsc.getAttribute('reconnect') == '') {
 						dsc.setAttribute('reconnect', '1');
-						tasks.push(L.Request.post(
-							L.url('admin/network/iface_reconnect', section_ids[i]),
-							'token=' + L.env.token,
-							{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-						).catch(function() {}));
+						tasks.push(fs.exec('/sbin/ifup', [section_ids[i]]).catch(function(e) {
+							ui.addNotification(null, E('p', e.message));
+						}));
 					}
-					else if (dsc.getAttribute('disconnect') == '' || dsc.getAttribute('disconnect') == 'force') {
-						var force = dsc.getAttribute('disconnect');
+					else if (dsc.getAttribute('disconnect') == '') {
 						dsc.setAttribute('disconnect', '1');
-						tasks.push(L.Request.post(
-							L.url('admin/network/iface_down', section_ids[i], force),
-							'token=' + L.env.token,
-							{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-						).then(L.bind(function(ifname, res) {
-							if (res.status == 409) {
-								L.ui.showModal(_('Confirm disconnect'), [
-									E('p', _('You appear to be currently connected to the device via the "%h" interface. Do you really want to shut down the interface?').format(ifname)),
-									E('div', { 'class': 'right' }, [
-										E('button', {
-											'class': 'cbi-button cbi-button-neutral',
-											'click': L.ui.hideModal
-										}, _('Cancel')),
-										' ',
-										E('button', {
-											'class': 'cbi-button cbi-button-negative important',
-											'click': function(ev) {
-												iface_updown(false, ifname, ev, true);
-												L.ui.hideModal();
-											}
-										}, _('Disconnect'))
-									])
-								]);
-							}
-						}, this, section_ids[i]), function() {}));
+						tasks.push(fs.exec('/sbin/ifdown', [section_ids[i]]).catch(function(e) {
+							ui.addNotification(null, E('p', e.message));
+						}));
 					}
 					else if (dsc.getAttribute('reconnect') == '1') {
 						dsc.removeAttribute('reconnect');

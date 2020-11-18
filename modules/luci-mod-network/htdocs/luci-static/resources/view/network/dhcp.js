@@ -1,27 +1,30 @@
 'use strict';
+'require view';
+'require dom';
+'require poll';
 'require rpc';
 'require uci';
 'require form';
+'require validation';
 
-var callHostHints, callDUIDHints, callDHCPLeases, CBILeaseStatus;
+var callHostHints, callDUIDHints, callDHCPLeases, CBILeaseStatus, CBILease6Status;
 
 callHostHints = rpc.declare({
-	object: 'luci',
+	object: 'luci-rpc',
 	method: 'getHostHints',
 	expect: { '': {} }
 });
 
 callDUIDHints = rpc.declare({
-	object: 'luci',
+	object: 'luci-rpc',
 	method: 'getDUIDHints',
 	expect: { '': {} }
 });
 
 callDHCPLeases = rpc.declare({
-	object: 'luci',
+	object: 'luci-rpc',
 	method: 'getDHCPLeases',
-	params: [ 'family' ],
-	expect: { dhcp_leases: [] }
+	expect: { '': {} }
 });
 
 CBILeaseStatus = form.DummyValue.extend({
@@ -33,7 +36,7 @@ CBILeaseStatus = form.DummyValue.extend({
 					E('div', { 'class': 'th' }, _('Hostname')),
 					E('div', { 'class': 'th' }, _('IPv4-Address')),
 					E('div', { 'class': 'th' }, _('MAC-Address')),
-					E('div', { 'class': 'th' }, _('Leasetime remaining'))
+					E('div', { 'class': 'th' }, _('Lease time remaining'))
 				]),
 				E('div', { 'class': 'tr placeholder' }, [
 					E('div', { 'class': 'td' }, E('em', _('Collecting data...')))
@@ -43,9 +46,99 @@ CBILeaseStatus = form.DummyValue.extend({
 	}
 });
 
-return L.view.extend({
+CBILease6Status = form.DummyValue.extend({
+	renderWidget: function(section_id, option_id, cfgvalue) {
+		return E([
+			E('h4', _('Active DHCPv6 Leases')),
+			E('div', { 'id': 'lease6_status_table', 'class': 'table' }, [
+				E('div', { 'class': 'tr table-titles' }, [
+					E('div', { 'class': 'th' }, _('Host')),
+					E('div', { 'class': 'th' }, _('IPv6-Address')),
+					E('div', { 'class': 'th' }, _('DUID')),
+					E('div', { 'class': 'th' }, _('Lease time remaining'))
+				]),
+				E('div', { 'class': 'tr placeholder' }, [
+					E('div', { 'class': 'td' }, E('em', _('Collecting data...')))
+				])
+			])
+		]);
+	}
+});
 
+function validateHostname(sid, s) {
+	if (s == null || s == '')
+		return true;
 
+	if (s.length > 256)
+		return _('Expecting: %s').format(_('valid hostname'));
+
+	var labels = s.replace(/^\.+|\.$/g, '').split(/\./);
+
+	for (var i = 0; i < labels.length; i++)
+		if (!labels[i].match(/^[a-z0-9_](?:[a-z0-9-]{0,61}[a-z0-9])?$/i))
+			return _('Expecting: %s').format(_('valid hostname'));
+
+	return true;
+}
+
+function validateAddressList(sid, s) {
+	if (s == null || s == '')
+		return true;
+
+	var m = s.match(/^\/(.+)\/$/),
+	    names = m ? m[1].split(/\//) : [ s ];
+
+	for (var i = 0; i < names.length; i++) {
+		var res = validateHostname(sid, names[i]);
+
+		if (res !== true)
+			return res;
+	}
+
+	return true;
+}
+
+function validateServerSpec(sid, s) {
+	if (s == null || s == '')
+		return true;
+
+	var m = s.match(/^(?:\/(.+)\/)?(.*)$/);
+	if (!m)
+		return _('Expecting: %s').format(_('valid hostname'));
+
+	var res = validateAddressList(sid, m[1]);
+	if (res !== true)
+		return res;
+
+	if (m[2] == '' || m[2] == '#')
+		return true;
+
+	// ipaddr%scopeid#srvport@source@interface#srcport
+
+	m = m[2].match(/^([0-9a-f:.]+)(?:%[^#@]+)?(?:#(\d+))?(?:@([0-9a-f:.]+)(?:@[^#]+)?(?:#(\d+))?)?$/);
+
+	if (!m)
+		return _('Expecting: %s').format(_('valid IP address'));
+
+	if (validation.parseIPv4(m[1])) {
+		if (m[3] != null && !validation.parseIPv4(m[3]))
+			return _('Expecting: %s').format(_('valid IPv4 address'));
+	}
+	else if (validation.parseIPv6(m[1])) {
+		if (m[3] != null && !validation.parseIPv6(m[3]))
+			return _('Expecting: %s').format(_('valid IPv6 address'));
+	}
+	else {
+		return _('Expecting: %s').format(_('valid IP address'));
+	}
+
+	if ((m[2] != null && +m[2] > 65535) || (m[4] != null && +m[4] > 65535))
+		return _('Expecting: %s').format(_('valid port value'));
+
+	return true;
+}
+
+return view.extend({
 	load: function() {
 		return Promise.all([
 			callHostHints(),
@@ -54,7 +147,8 @@ return L.view.extend({
 	},
 
 	render: function(hosts_duids) {
-		var hosts = hosts_duids[0],
+		var has_dhcpv6 = L.hasSystemFeature('dnsmasq', 'dhcpv6') || L.hasSystemFeature('odhcpd'),
+		    hosts = hosts_duids[0],
 		    duids = hosts_duids[1],
 		    m, s, o, ss, so;
 
@@ -94,7 +188,8 @@ return L.view.extend({
 			_('Resolve file'),
 			_('local <abbr title="Domain Name System">DNS</abbr> file'));
 
-		o.depends('noresolv', '');
+		o.depends('noresolv', '0');
+		o.placeholder = '/tmp/resolv.conf.d/resolv.conf.auto';
 		o.optional = true;
 
 
@@ -128,10 +223,7 @@ return L.view.extend({
 			_('Localise queries'),
 			_('Localise hostname depending on the requesting subnet if multiple IPs are available'));
 
-		//local have_dnssec_support = luci.util.checklib('/usr/sbin/dnsmasq', 'libhogweed.so');
-		var have_dnssec_support = true;
-
-		if (have_dnssec_support) {
+		if (L.hasSystemFeature('dnsmasq', 'dnssec')) {
 			o = s.taboption('advanced', form.Flag, 'dnssec',
 				_('DNSSEC'));
 			o.optional = true;
@@ -139,6 +231,7 @@ return L.view.extend({
 			o = s.taboption('advanced', form.Flag, 'dnsseccheckunsigned',
 				_('DNSSEC check unsigned'),
 				_('Requires upstream supports DNSSEC; verify unsigned domain responses really come from unsigned domains'));
+			o.default = o.enabled;
 			o.optional = true;
 		}
 
@@ -186,6 +279,14 @@ return L.view.extend({
 
 		o.optional = true;
 		o.placeholder = '/example.org/10.1.2.3';
+		o.validate = validateServerSpec;
+
+
+		o = s.taboption('general', form.DynamicList, 'address', _('Addresses'),
+			_('List of domains to force to an IP address.'));
+		
+		o.optional = true;
+		o.placeholder = '/router.local/192.168.0.1';
 
 
 		o = s.taboption('general', form.Flag, 'rebind_protection',
@@ -208,8 +309,8 @@ return L.view.extend({
 		o.optional = true;
 
 		o.depends('rebind_protection', '1');
-		o.datatype = 'host(1)';
 		o.placeholder = 'ihost.netflix.com';
+		o.validate = validateAddressList;
 
 
 		o = s.taboption('advanced', form.Value, 'port',
@@ -292,6 +393,7 @@ return L.view.extend({
 		o = s.taboption('general', form.Flag, 'nonwildcard',
 			_('Non-wildcard'),
 			_('Bind dynamically to interfaces rather than wildcard address (recommended as linux default)'));
+		o.default = o.enabled;
 		o.optional = false;
 		o.rmempty = true;
 
@@ -315,7 +417,7 @@ return L.view.extend({
 		ss.anonymous = true;
 
 		so = ss.option(form.Value, 'name', _('Hostname'));
-		so.datatype = 'hostname("strict")';
+		so.validate = validateHostname;
 		so.rmempty  = true;
 		so.write = function(section, value) {
 			uci.set('dhcp', section, 'name', value);
@@ -330,11 +432,8 @@ return L.view.extend({
 		so.datatype = 'list(unique(macaddr))';
 		so.rmempty  = true;
 		so.cfgvalue = function(section) {
-			var macs = uci.get('dhcp', section, 'mac'),
+			var macs = L.toArray(uci.get('dhcp', section, 'mac')),
 			    result = [];
-
-			if (!Array.isArray(macs))
-				macs = (macs != null && macs != '') ? macs.split(/\ss+/) : [];
 
 			for (var i = 0, mac; (mac = macs[i]) != null; i++)
 				if (/^([0-9a-fA-F]{1,2}):([0-9a-fA-F]{1,2}):([0-9a-fA-F]{1,2}):([0-9a-fA-F]{1,2}):([0-9a-fA-F]{1,2}):([0-9a-fA-F]{1,2})$/.test(mac))
@@ -360,7 +459,7 @@ return L.view.extend({
 
 				var node = ipopt.map.findElement('id', ipopt.cbid(section_id));
 				if (node)
-					L.dom.callClassMethod(node, 'setValue', hosts[mac].ipv4);
+					dom.callClassMethod(node, 'setValue', hosts[mac].ipv4);
 			}, this, ipopt, section_id));
 
 			return node;
@@ -396,16 +495,22 @@ return L.view.extend({
 		so = ss.option(form.Value, 'duid', _('<abbr title="The DHCP Unique Identifier">DUID</abbr>'));
 		so.datatype = 'and(rangelength(20,36),hexstring)';
 		Object.keys(duids).forEach(function(duid) {
-			so.value(duid, '%s (%s)'.format(duid, duids[duid].name || '?'));
+			so.value(duid, '%s (%s)'.format(duid, duids[duid].hostname || duids[duid].macaddr || duids[duid].ip6addr || '?'));
 		});
 
 		so = ss.option(form.Value, 'hostid', _('<abbr title="Internet Protocol Version 6">IPv6</abbr>-Suffix (hex)'));
 
 		o = s.taboption('leases', CBILeaseStatus, '__status__');
 
+		if (has_dhcpv6)
+			o = s.taboption('leases', CBILease6Status, '__status6__');
+
 		return m.render().then(function(mapEl) {
-			L.Poll.add(function() {
-				return callDHCPLeases(4).then(function(leases) {
+			poll.add(function() {
+				return callDHCPLeases().then(function(leaseinfo) {
+					var leases = Array.isArray(leaseinfo.dhcp_leases) ? leaseinfo.dhcp_leases : [],
+					    leases6 = Array.isArray(leaseinfo.dhcp6_leases) ? leaseinfo.dhcp6_leases : [];
+
 					cbi_update_table(mapEl.querySelector('#lease_status_table'),
 						leases.map(function(lease) {
 							var exp;
@@ -425,6 +530,39 @@ return L.view.extend({
 							];
 						}),
 						E('em', _('There are no active leases')));
+
+					if (has_dhcpv6) {
+						cbi_update_table(mapEl.querySelector('#lease6_status_table'),
+							leases6.map(function(lease) {
+								var exp;
+
+								if (lease.expires === false)
+									exp = E('em', _('unlimited'));
+								else if (lease.expires <= 0)
+									exp = E('em', _('expired'));
+								else
+									exp = '%t'.format(lease.expires);
+
+								var hint = lease.macaddr ? hosts[lease.macaddr] : null,
+								    name = hint ? (hint.name || hint.ipv4 || hint.ipv6) : null,
+								    host = null;
+
+								if (name && lease.hostname && lease.hostname != name && lease.ip6addr != name)
+									host = '%s (%s)'.format(lease.hostname, name);
+								else if (lease.hostname)
+									host = lease.hostname;
+								else if (name)
+									host = name;
+
+								return [
+									host || '-',
+									lease.ip6addrs ? lease.ip6addrs.join(' ') : lease.ip6addr,
+									lease.duid,
+									exp
+								];
+							}),
+							E('em', _('There are no active leases')));
+					}
 				});
 			});
 

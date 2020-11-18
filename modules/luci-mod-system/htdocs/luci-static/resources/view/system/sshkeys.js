@@ -1,7 +1,12 @@
 'use strict';
-'require rpc';
+'require baseclass';
+'require view';
+'require fs';
+'require ui';
 
-var SSHPubkeyDecoder = L.Class.singleton({
+var isReadonlyView = !L.hasViewPermission() || null;
+
+var SSHPubkeyDecoder = baseclass.singleton({
 	lengthDecode: function(s, off)
 	{
 		var l = (s.charCodeAt(off++) << 24) |
@@ -90,19 +95,6 @@ var SSHPubkeyDecoder = L.Class.singleton({
 	}
 });
 
-var callFileRead = rpc.declare({
-	object: 'file',
-	method: 'read',
-	params: [ 'path' ],
-	expect: { data: '' }
-});
-
-var callFileWrite = rpc.declare({
-	object: 'file',
-	method: 'write',
-	params: [ 'path', 'data' ]
-});
-
 function renderKeys(keys) {
 	var list = document.querySelector('.cbi-dynlist');
 
@@ -130,9 +122,10 @@ function renderKeys(keys) {
 }
 
 function saveKeys(keys) {
-	return callFileWrite('/etc/dropbear/authorized_keys', keys.join('\n') + '\n')
+	return fs.write('/etc/dropbear/authorized_keys', keys.join('\n') + '\n', 384 /* 0600 */)
 		.then(renderKeys.bind(this, keys))
-		.then(L.ui.hideModal);
+		.catch(function(e) { ui.addNotification(null, E('p', e.message)) })
+		.finally(ui.hideModal);
 }
 
 function addKey(ev) {
@@ -150,13 +143,13 @@ function addKey(ev) {
 	});
 
 	if (keys.indexOf(key) !== -1) {
-		L.ui.showModal(_('Add key'), [
+		ui.showModal(_('Add key'), [
 			E('div', { class: 'alert-message warning' }, _('The given SSH public key has already been added.')),
 			E('div', { class: 'right' }, E('div', { class: 'btn', click: L.hideModal }, _('Close')))
 		]);
 	}
 	else if (!pubkey) {
-		L.ui.showModal(_('Add key'), [
+		ui.showModal(_('Add key'), [
 			E('div', { class: 'alert-message warning' }, _('The given SSH public key is invalid. Please supply proper public RSA or ECDSA keys.')),
 			E('div', { class: 'right' }, E('div', { class: 'btn', click: L.hideModal }, _('Close')))
 		]);
@@ -190,7 +183,7 @@ function removeKey(ev) {
 		E('div', { class: 'right' }, [
 			E('div', { class: 'btn', click: L.hideModal }, _('Cancel')),
 			' ',
-			E('div', { class: 'btn danger', click: L.ui.createHandlerFn(this, saveKeys, keys) }, _('Delete key')),
+			E('div', { class: 'btn danger', click: ui.createHandlerFn(this, saveKeys, keys) }, _('Delete key')),
 		])
 	]);
 }
@@ -224,29 +217,33 @@ function handleWindowDragDropIgnore(ev) {
 	ev.preventDefault()
 }
 
-return L.view.extend({
+return view.extend({
 	load: function() {
-		return callFileRead('/etc/dropbear/authorized_keys').then(function(data) {
-			return (data || '').split(/\n/).map(function(line) {
-				return line.trim();
-			}).filter(function(line) {
-				return line.match(/^ssh-/) != null;
+		return fs.lines('/etc/dropbear/authorized_keys').then(function(lines) {
+			return lines.filter(function(line) {
+				return line.match(/^(ssh-rsa|ssh-dss|ssh-ed25519|ecdsa-sha2)\b/) != null;
 			});
 		});
 	},
 
 	render: function(keys) {
-		var list = E('div', { 'class': 'cbi-dynlist', 'dragover': dragKey, 'drop': dropKey }, [
+		var list = E('div', {
+			'class': 'cbi-dynlist',
+			'dragover': isReadonlyView ? null : dragKey,
+			'drop': isReadonlyView ? null : dropKey
+		}, [
 			E('div', { 'class': 'add-item' }, [
 				E('input', {
 					'class': 'cbi-input-text',
 					'type': 'text',
 					'placeholder': _('Paste or drag SSH key file…') ,
-					'keydown': function(ev) { if (ev.keyCode === 13) addKey(ev) }
+					'keydown': function(ev) { if (ev.keyCode === 13) addKey(ev) },
+					'disabled': isReadonlyView
 				}),
 				E('button', {
 					'class': 'cbi-button',
-					'click': L.ui.createHandlerFn(this, addKey)
+					'click': ui.createHandlerFn(this, addKey),
+					'disabled': isReadonlyView
 				}, _('Add key'))
 			])
 		]);
@@ -256,7 +253,7 @@ return L.view.extend({
 			if (pubkey)
 				list.insertBefore(E('div', {
 					class: 'item',
-					click: L.ui.createHandlerFn(this, removeKey),
+					click: isReadonlyView ? null : ui.createHandlerFn(this, removeKey),
 					'data-key': key
 				}, [
 					E('strong', pubkey.comment || _('Unnamed key')), E('br'),

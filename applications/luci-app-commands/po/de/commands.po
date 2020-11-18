@@ -1,19 +1,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2012-11-21 18:45+0200\n"
-"Last-Translator: Jo-Philipp <jow@openwrt.org>\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-10-20 05:26+0000\n"
+"Last-Translator: Andreas Götz <agoetz@tdt.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationscommands/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.1-dev\n"
 
 #: applications/luci-app-commands/luasrc/model/cbi/commands.lua:16
 msgid "A short textual description of the configured command"
-msgstr "Kurze Beschreibung des abgespeicherten Kommandos"
+msgstr "Eine kurze Beschreibung des konfigurierten Befehls"
 
 #: applications/luci-app-commands/luasrc/model/cbi/commands.lua:25
 msgid ""
@@ -27,37 +28,37 @@ msgstr ""
 msgid "Allow the user to provide additional command line arguments"
 msgstr "Erlaube dem Nutzer zusätzliche Kommandozeilenargumente zu übergeben"
 
-#: applications/luci-app-commands/luasrc/view/commands.htm:146
+#: applications/luci-app-commands/luasrc/view/commands.htm:156
 msgid "Arguments:"
 msgstr "Argumente:"
 
 #: applications/luci-app-commands/luasrc/view/commands.htm:66
 msgid "Binary data not displayed, download instead."
-msgstr "Binärdaten ausgeblendet, laden Sie die Ausgaben stattdessen herunter"
+msgstr "Binärdaten ausgeblendet, laden Sie die Ausgaben stattdessen herunter."
 
 #: applications/luci-app-commands/luasrc/view/commands.htm:71
 msgid "Code:"
 msgstr "Rückgabewert:"
 
-#: applications/luci-app-commands/luasrc/view/commands.htm:164
+#: applications/luci-app-commands/luasrc/view/commands.htm:176
 msgid "Collecting data..."
 msgstr "Sammle Daten..."
 
 #: applications/luci-app-commands/luasrc/model/cbi/commands.lua:18
 msgid "Command"
-msgstr "Kommando"
+msgstr "Befehl"
 
 #: applications/luci-app-commands/luasrc/view/commands_public.htm:30
 msgid "Command executed successfully."
-msgstr ""
+msgstr "Befehl erfolgreich ausgeführt."
 
 #: applications/luci-app-commands/luasrc/view/commands_public.htm:32
 msgid "Command exited with status code"
-msgstr ""
+msgstr "Befehl wurde mit einem Rückgabewert beendet"
 
 #: applications/luci-app-commands/luasrc/view/commands.htm:73
 msgid "Command failed"
-msgstr "Kommando fehlgeschlagen"
+msgstr "Befehl fehlgeschlagen"
 
 #: applications/luci-app-commands/luasrc/model/cbi/commands.lua:19
 msgid "Command line to execute"
@@ -67,7 +68,7 @@ msgstr "Auszuführende Kommandozeile"
 msgid "Command successful"
 msgstr "Kommando erfolgreich"
 
-#: applications/luci-app-commands/luasrc/view/commands.htm:144
+#: applications/luci-app-commands/luasrc/view/commands.htm:154
 msgid "Command:"
 msgstr "Kommando:"
 
@@ -93,19 +94,23 @@ msgstr "Übersicht"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: applications/luci-app-commands/luasrc/view/commands.htm:150
+#: applications/luci-app-commands/luasrc/view/commands.htm:160
 msgid "Download"
-msgstr "Herunterladen"
+msgstr "Download"
 
 #: applications/luci-app-commands/luasrc/view/commands.htm:119
 msgid "Download execution result"
-msgstr ""
+msgstr "Programmausgabe herunterladen"
 
 #: applications/luci-app-commands/luasrc/view/commands.htm:79
 msgid "Failed to execute command!"
-msgstr "Kommando konnte nicht ausgeführt werden!"
+msgstr "Befehl konnte nicht ausgeführt werden!"
 
-#: applications/luci-app-commands/luasrc/view/commands.htm:152
+#: applications/luci-app-commands/root/usr/share/rpcd/acl.d/luci-app-commands.json:3
+msgid "Grant UCI access for luci-app-commands"
+msgstr "Gewähre UCI Zugriff auf luci-app-commands"
+
+#: applications/luci-app-commands/luasrc/view/commands.htm:162
 msgid "Link"
 msgstr "Link"
 
@@ -115,23 +120,23 @@ msgstr "Lade"
 
 #: applications/luci-app-commands/luasrc/view/commands.htm:119
 msgid "Or display result"
-msgstr ""
+msgstr "Oder Ergebnis anzeigen"
 
 #: applications/luci-app-commands/luasrc/model/cbi/commands.lua:24
 msgid "Public access"
 msgstr "Öffentlicher Zugriff"
 
-#: applications/luci-app-commands/luasrc/view/commands.htm:149
+#: applications/luci-app-commands/luasrc/view/commands.htm:159
 msgid "Run"
 msgstr "Ausführen"
 
 #: applications/luci-app-commands/luasrc/view/commands_public.htm:41
 msgid "Standard Error"
-msgstr ""
+msgstr "Fehlerausgabe"
 
 #: applications/luci-app-commands/luasrc/view/commands_public.htm:36
 msgid "Standard Output"
-msgstr ""
+msgstr "Standardausgabe"
 
 #: applications/luci-app-commands/luasrc/model/cbi/commands.lua:7
 msgid ""
@@ -141,9 +146,13 @@ msgstr ""
 "Diese Seite ermöglicht die Konfiguration eigener Shell-Kommandos um diese "
 "einfach über das Webinterface ausführen zu können."
 
+#: applications/luci-app-commands/luasrc/view/commands.htm:144
+msgid "This section contains no values yet"
+msgstr "Dieser Abschnitt enthält noch keine Werte"
+
 #: applications/luci-app-commands/luasrc/view/commands.htm:54
 msgid "Waiting for command to complete..."
-msgstr "Warte auf die Ausführung des Kommandos..."
+msgstr "Der Befehl wird ausgeführt..."
 
 #~ msgid "Access command with"
 #~ msgstr "Kommando aufrufen mit"

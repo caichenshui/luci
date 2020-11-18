@@ -1,12 +1,14 @@
 'use strict';
+'require view';
 'require rpc';
 'require uci';
 'require form';
 'require network';
 'require firewall';
+'require tools.firewall as fwtool';
 'require tools.widgets as widgets';
 
-return L.view.extend({
+return view.extend({
 	callConntrackHelpers: rpc.declare({
 		object: 'luci',
 		method: 'getConntrackHelpers',
@@ -21,6 +23,13 @@ return L.view.extend({
 	},
 
 	render: function(data) {
+		if (fwtool.checkLegacySNAT())
+			return fwtool.renderMigration();
+		else
+			return this.renderZones(data);
+	},
+
+	renderZones: function(data) {
 		var ctHelpers = data[0],
 		    fwDefaults = data[1],
 		    m, s, o, inp, out;
@@ -32,7 +41,20 @@ return L.view.extend({
 		s.anonymous = true;
 		s.addremove = false;
 
-		o = s.option(form.Flag, 'syn_flood', _('Enable SYN-flood protection'));
+		o = s.option(form.Flag, 'synflood_protect', _('Enable SYN-flood protection'));
+		o.cfgvalue = function(section_id) {
+			var val = uci.get('firewall', section_id, 'synflood_protect');
+			return (val != null) ? val : uci.get('firewall', section_id, 'syn_flood');
+		};
+		o.write = function(section_id, value) {
+			uci.unset('firewall', section_id, 'syn_flood');
+			uci.set('firewall', section_id, 'synflood_protect', value);
+		};
+		o.remove = function(section_id) {
+			uci.unset('firewall', section_id, 'syn_flood');
+			uci.unset('firewall', section_id, 'synflood_protect');
+		};
+
 		o = s.option(form.Flag, 'drop_invalid', _('Drop invalid packets'));
 
 		var p = [
@@ -73,6 +95,12 @@ return L.view.extend({
 		s.addremove = true;
 		s.anonymous = true;
 		s.sortable  = true;
+
+		s.handleRemove = function(section_id, ev) {
+			return firewall.deleteZone(section_id).then(L.bind(function() {
+				return this.super('handleRemove', [section_id, ev]);
+			}, this));
+		};
 
 		s.tab('general', _('General Settings'));
 		s.tab('advanced', _('Advanced Settings'));
@@ -137,6 +165,9 @@ return L.view.extend({
 		o = s.taboption('general', widgets.NetworkSelect, 'network', _('Covered networks'));
 		o.modalonly = true;
 		o.multiple = true;
+		o.cfgvalue = function(section_id) {
+			return uci.get('firewall', section_id, 'network');
+		};
 		o.write = function(section_id, formvalue) {
 			var name = uci.get('firewall', section_id, 'name'),
 			    cfgvalue = this.cfgvalue(section_id);
@@ -159,9 +190,6 @@ return L.view.extend({
 					for (var i = 1; i < zone_networks.length; i++)
 						zone_networks[0].addNetwork(zone_networks[i].getName());
 			});
-		};
-		o.remove = function(section_id) {
-			return uci.set('firewall', section_id, 'network', ' ');
 		};
 
 		o = s.taboption('advanced', form.DummyValue, '_advancedinfo');
@@ -203,9 +231,6 @@ return L.view.extend({
 		o.depends('family', 'ipv4');
 		o.datatype = 'list(neg(or(uciname,hostname,ipmask4)))';
 		o.placeholder = '0.0.0.0/0';
-		o.modalonly = true;
-
-		o = s.taboption('conntrack', form.Flag, 'conntrack', _('Force connection tracking'), _('Prevent the installation of <em>NOTRACK</em> rules which would bypass connection tracking.'));
 		o.modalonly = true;
 
 		o = s.taboption('conntrack', form.Flag, 'masq_allow_invalid', _('Allow "invalid" traffic'), _('Do not install extra rules to reject forwarded traffic with conntrack state <em>invalid</em>. This may be required for complex asymmetric route setups.'));

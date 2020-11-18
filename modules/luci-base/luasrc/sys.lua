@@ -7,7 +7,6 @@ local table  = require "table"
 local nixio  = require "nixio"
 local fs     = require "nixio.fs"
 local uci    = require "luci.model.uci"
-local ntm    = require "luci.model.network"
 
 local luci  = {}
 luci.util   = require "luci.util"
@@ -380,7 +379,7 @@ function process.list()
 
 	for line in ps do
 		local pid, ppid, user, stat, vsz, mem, cpu, cmd = line:match(
-			"^ *(%d+) +(%d+) +(%S.-%S) +([RSDZTW][<NW ][<N ]) +(%d+) +(%d+%%) +(%d+%%) +(.+)"
+			"^ *(%d+) +(%d+) +(%S.-%S) +([RSDZTW][<NW ][<N ]) +(%d+m?) +(%d+%%) +(%d+%%) +(.+)"
 		)
 
 		local idx = tonumber(pid)
@@ -537,6 +536,8 @@ end
 wifi = {}
 
 function wifi.getiwinfo(ifname)
+	local ntm = require "luci.model.network"
+
 	ntm.init()
 
 	local wnet = ntm:get_wifinet(ifname)

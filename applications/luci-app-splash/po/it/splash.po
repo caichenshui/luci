@@ -3,15 +3,20 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-10 18:43+0200\n"
-"PO-Revision-Date: 2013-02-10 19:08+0200\n"
-"Last-Translator: Francesco <3gasas@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-03-04 04:28+0000\n"
+"Last-Translator: TuxAlex0 <alex.skatingcassano@gmail.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationssplash/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0-dev\n"
+
+#: applications/luci-app-splash/luasrc/view/splash/splash.htm:53
+msgid "%s with the operator of this access point."
+msgstr ""
 
 #: applications/luci-app-splash/luasrc/view/splash/splash.htm:65
 #: applications/luci-app-splash/luasrc/view/splash_splash/splash.htm:13
@@ -72,7 +77,7 @@ msgstr ""
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:62
 msgid "Blacklist"
-msgstr "Lista Nera"
+msgstr "Lista di Blocco"
 
 #: applications/luci-app-splash/luasrc/view/splash/blocked.htm:12
 msgid "Blocked"
@@ -125,9 +130,8 @@ msgid "Clients upload speed is limited to this value (kbyte/s)"
 msgstr "La velocità di upload dei clienti è limitata a questo valore (kbyte/s)"
 
 #: applications/luci-app-splash/luasrc/view/splash/blocked.htm:15
-#: applications/luci-app-splash/luasrc/view/splash/splash.htm:54
-msgid "Contact"
-msgstr "Contatto"
+msgid "Contact the owner"
+msgstr ""
 
 #: applications/luci-app-splash/luasrc/view/splash_splash/splash.htm:12
 msgid "Decline"
@@ -164,13 +168,17 @@ msgstr "Zona Firewall"
 msgid "General"
 msgstr "Generale"
 
-#: applications/luci-app-splash/luasrc/view/splash/splash.htm:53
-msgid "Get in %s with the operator of this access point."
+#: applications/luci-app-splash/luasrc/view/splash/splash.htm:54
+msgid "Get in contact"
+msgstr ""
+
+#: applications/luci-app-splash/root/usr/share/rpcd/acl.d/luci-app-splash.json:3
+msgid "Grant UCI access for luci-app-splash"
 msgstr ""
 
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:205
 msgid "Hostname"
-msgstr "Nome Host"
+msgstr "Hostname"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:76
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:206
@@ -359,7 +367,7 @@ msgstr "Benvenuti"
 
 #: applications/luci-app-splash/luasrc/model/cbi/splash/splash.lua:53
 msgid "Whitelist"
-msgstr "Elenco Consentiti"
+msgstr "Lista bianca"
 
 #: applications/luci-app-splash/luasrc/view/splash/splash.htm:77
 msgid "You are now connected to the free wireless mesh network"
@@ -435,6 +443,9 @@ msgstr "sprecate banda con download o flussi inutili"
 #: applications/luci-app-splash/luasrc/view/admin_status/splash.htm:241
 msgid "whitelisted"
 msgstr "Elenco contensiti"
+
+#~ msgid "Contact"
+#~ msgstr "Contatto"
 
 #~ msgid ""
 #~ "Hosts and Networks that are listed here are excluded from splashing, i.e. "

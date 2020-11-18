@@ -47,10 +47,6 @@ local basicParams = {
 		"keepalive",
 		"10 60",
 		translate("Helper directive to simplify the expression of --ping and --ping-restart in server mode configurations") },
-	{ ListValue,
-		"proto",
-		{ "udp", "tcp-client", "tcp-server" },
-		translate("Use protocol") },
 	{ Flag,
 		"client",
 		0,
@@ -62,7 +58,7 @@ local basicParams = {
 	{ DynamicList,
 		"remote",
 		"vpnserver.example.org",
-		translate("Remote host name or ip address") },
+		translate("Remote host name or IP address") },
 	{ FileUpload,
 		"secret",
 		"/etc/openvpn/secret.key",
@@ -82,7 +78,7 @@ local basicParams = {
 	{ FileUpload,
 		"dh",
 		"/etc/easy-rsa/keys/dh1024.pem",
-		translate("Diffie Hellman parameters") },
+		translate("Diffie-Hellman parameters") },
 	{ FileUpload,
 		"cert",
 		"/etc/easy-rsa/keys/some-client.crt",
@@ -93,6 +89,20 @@ local basicParams = {
 		translate("Local private key") },
 }
 
+local has_ipv6 = fs.access("/proc/net/ipv6_route")
+if has_ipv6 then
+	table.insert( basicParams, { ListValue,
+		"proto",
+		{ "udp", "tcp-client", "tcp-server", "udp6", "tcp6-client", "tcp6-server" },
+		translate("Use protocol")
+	})
+else
+	table.insert( basicParams, { ListValue,
+		"proto",
+		{ "udp", "tcp-client", "tcp-server" },
+		translate("Use protocol")
+	})
+end
 
 local m = Map("openvpn")
 m.redirect = luci.dispatcher.build_url("admin", "vpn", "openvpn")
@@ -117,6 +127,8 @@ for _, option in ipairs(basicParams) do
 	if option[1] == DummyValue then
 		o.value = option[3]
 	elseif option[1] == FileUpload then
+
+		o.initial_directory = "/etc/openvpn"
 
 		function o.cfgvalue(self, section)
 			local cfg_val = AbstractValue.cfgvalue(self, section)

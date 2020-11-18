@@ -25,10 +25,6 @@ msgstr ""
 msgid "Blink"
 msgstr ""
 
-#: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:207
-msgid "Check to save the stream to an mjpeg file"
-msgstr ""
-
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:220
 msgid "Command to run"
 msgstr ""
@@ -46,7 +42,7 @@ msgid "Don't initialize dynctrls"
 msgstr ""
 
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:74
-msgid "Drop frames smaller then this limit"
+msgid "Drop frames smaller than this limit"
 msgstr ""
 
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:12
@@ -67,12 +63,8 @@ msgstr ""
 
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:220
 msgid ""
-"Execute command after saving picture. Mjpg-streamer parse the filename as "
+"Execute command after saving picture. Mjpg-streamer parses the filename as "
 "first parameter to your script."
-msgstr ""
-
-#: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:36
-msgid "File input"
 msgstr ""
 
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:34
@@ -93,6 +85,10 @@ msgstr ""
 
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:8
 msgid "General"
+msgstr ""
+
+#: applications/luci-app-mjpg-streamer/root/usr/share/rpcd/acl.d/luci-app-mjpg-streamer.json:3
+msgid "Grant UCI access for luci-app-mjpg-streamer"
 msgstr ""
 
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:33
@@ -123,16 +119,12 @@ msgstr ""
 msgid "Link the last picture in ringbuffer to fixed named file provided."
 msgstr ""
 
-#: applications/luci-app-mjpg-streamer/luasrc/controller/mjpg-streamer.lua:12
+#: applications/luci-app-mjpg-streamer/root/usr/share/luci/menu.d/luci-app-mjpg-streamer.json:3
 msgid "MJPG-streamer"
 msgstr ""
 
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:213
 msgid "Max. number of pictures to hold"
-msgstr ""
-
-#: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:207
-msgid "Mjpeg output"
 msgstr ""
 
 #: applications/luci-app-mjpg-streamer/luasrc/model/cbi/mjpg-streamer.lua:81

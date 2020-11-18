@@ -1,19 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2019-04-01 23:59-0300\n"
-"Last-Translator: José Vicente <josevteg@gmail.com>\n"
-"Language-Team: German\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2020-05-02 10:21+0000\n"
+"Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationsvnstat/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
-"POT-Creation-Date: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.1-dev\n"
 
-#: applications/luci-app-vnstat/luasrc/controller/vnstat.lua:6
-#: applications/luci-app-vnstat/luasrc/controller/vnstat.lua:10
+#: applications/luci-app-vnstat/root/usr/share/luci/menu.d/luci-app-vnstat.json:23
 msgid "Configuration"
 msgstr "Configuración"
 
@@ -21,10 +21,13 @@ msgstr "Configuración"
 msgid "Daily traffic"
 msgstr "Tráfico diario"
 
-#: applications/luci-app-vnstat/luasrc/controller/vnstat.lua:5
-#: applications/luci-app-vnstat/luasrc/controller/vnstat.lua:9
+#: applications/luci-app-vnstat/root/usr/share/rpcd/acl.d/luci-app-vnstat.json:3
+msgid "Grant UCI access for luci-app-vnstat"
+msgstr "Conceder acceso UCI para luci-app-vnstat"
+
+#: applications/luci-app-vnstat/root/usr/share/luci/menu.d/luci-app-vnstat.json:14
 msgid "Graphs"
-msgstr "Gráficas"
+msgstr "Gráficos"
 
 #: applications/luci-app-vnstat/luasrc/view/vnstat.htm:67
 msgid "Hourly traffic"
@@ -44,7 +47,7 @@ msgid ""
 "monitoring for one or more interfaces."
 msgstr ""
 "Todavía no se ha configurado ninguna base de datos. Vaya a la configuración "
-"de VnStat y habilite la monitorización para una o más interfaces."
+"de VnStat y active la monitorización para una o más interfaces."
 
 #: applications/luci-app-vnstat/luasrc/model/cbi/vnstat.lua:22
 msgid "Restart VnStat"
@@ -70,8 +73,7 @@ msgstr "VnStat"
 msgid "VnStat Graphs"
 msgstr "Graficas de VnStat"
 
-#: applications/luci-app-vnstat/luasrc/controller/vnstat.lua:4
-#: applications/luci-app-vnstat/luasrc/controller/vnstat.lua:8
+#: applications/luci-app-vnstat/root/usr/share/luci/menu.d/luci-app-vnstat.json:3
 msgid "VnStat Traffic Monitor"
 msgstr "Monitor de trafico de VnStat"
 

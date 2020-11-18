@@ -5,15 +5,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-25 22:10+0100\n"
-"PO-Revision-Date: 2014-06-20 23:36+0200\n"
-"Last-Translator: koli <lukas.koluch@gmail.com>\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2019-12-02 16:07+0000\n"
+"Last-Translator: Jiri Tersel <jiri.tersel@seznam.cz>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationsqos/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Pootle 2.0.6\n"
+"X-Generator: Weblate 3.10-dev\n"
 
 #: applications/luci-app-qos/luasrc/model/cbi/qos/qos.lua:23
 msgid "Calculate overhead"
@@ -45,6 +46,10 @@ msgstr "Rychlost stahování dat (kbit/s)"
 msgid "Enable"
 msgstr "Povolit"
 
+#: applications/luci-app-qos/root/usr/share/rpcd/acl.d/luci-app-qos.json:3
+msgid "Grant UCI access for luci-app-qos"
+msgstr ""
+
 #: applications/luci-app-qos/luasrc/model/cbi/qos/qos.lua:25
 msgid "Half-duplex"
 msgstr "Poloviční duplex"
@@ -65,7 +70,7 @@ msgstr "Porty"
 msgid "Protocol"
 msgstr "Protokol"
 
-#: applications/luci-app-qos/luasrc/controller/qos.lua:13
+#: applications/luci-app-qos/root/usr/share/luci/menu.d/luci-app-qos.json:3
 msgid "QoS"
 msgstr "QoS"
 
@@ -79,7 +84,7 @@ msgstr "Zdrojová adresa"
 
 #: applications/luci-app-qos/luasrc/model/cbi/qos/qos.lua:39
 msgid "Target"
-msgstr "Cílová třída priority"
+msgstr "Cíl"
 
 #: applications/luci-app-qos/luasrc/model/cbi/qos/qos.lua:30
 msgid "Upload speed (kbit/s)"

@@ -160,187 +160,6 @@ local methods = {
 		end
 	},
 
-	getIfaddrs = {
-		call = function()
-			return { result = nixio.getifaddrs() }
-		end
-	},
-
-	getHostHints = {
-		call = function()
-			local sys = require "luci.sys"
-			return sys.net.host_hints()
-		end
-	},
-
-	getDUIDHints = {
-		call = function()
-			local fp = io.open('/var/hosts/odhcpd')
-			local result = { }
-			if fp then
-				for line in fp:lines() do
-					local dev, duid, name = string.match(line, '# (%S+)%s+(%S+)%s+%d+%s+(%S+)')
-					if dev and duid and name then
-						result[duid] = {
-							name = (name ~= "-") and name or nil,
-							device = dev
-						}
-					end
-				end
-				fp:close()
-			end
-			return result
-		end
-	},
-
-	getDHCPLeases = {
-		args = { family = 0 },
-		call = function(args)
-			local s = require "luci.tools.status"
-
-			if args.family == 4 then
-				return { dhcp_leases = s.dhcp_leases() }
-			elseif args.family == 6 then
-				return { dhcp6_leases = s.dhcp6_leases() }
-			else
-				return {
-					dhcp_leases = s.dhcp_leases(),
-					dhcp6_leases = s.dhcp6_leases()
-				}
-			end
-		end
-	},
-
-	getNetworkDevices = {
-		call = function(args)
-			local dir = fs.dir("/sys/class/net")
-			local result = { }
-			if dir then
-				local dev
-				for dev in dir do
-					if not result[dev] then
-						result[dev] = { name = dev }
-					end
-
-					if fs.access("/sys/class/net/"..dev.."/master") then
-						local brname = fs.basename(fs.readlink("/sys/class/net/"..dev.."/master"))
-						if not result[brname] then
-							result[brname] = { name = brname }
-						end
-
-						if not result[brname].ports then
-							result[brname].ports = { }
-						end
-
-						result[brname].ports[#result[brname].ports+1] = dev
-					elseif fs.access("/sys/class/net/"..dev.."/bridge") then
-						if not result[dev].ports then
-							result[dev].ports = { }
-						end
-
-						result[dev].id = readfile("/sys/class/net/"..dev.."/bridge/bridge_id")
-						result[dev].stp = (readfile("/sys/class/net/"..dev.."/bridge/stp_state") ~= "0")
-						result[dev].bridge = true
-					end
-
-					local opr = readfile("/sys/class/net/"..dev.."/operstate")
-
-					result[dev].up = (opr == "up" or opr == "unknown")
-					result[dev].type = tonumber(readfile("/sys/class/net/"..dev.."/type"))
-					result[dev].name = dev
-
-					local mtu = tonumber(readfile("/sys/class/net/"..dev.."/mtu"))
-					if mtu and mtu > 0 then
-						result[dev].mtu = mtu
-					end
-
-					local qlen = tonumber(readfile("/sys/class/net/"..dev.."/tx_queue_len"))
-					if qlen and qlen > 0 then
-						result[dev].qlen = qlen
-					end
-
-					local master = fs.readlink("/sys/class/net/"..dev.."/master")
-					if master then
-						result[dev].master = fs.basename(master)
-					end
-
-					local mac = readfile("/sys/class/net/"..dev.."/address")
-					if mac and #mac == 17 then
-						result[dev].mac = mac
-					end
-				end
-			end
-			return result
-		end
-	},
-
-	getWirelessDevices = {
-		call = function(args)
-			local ubus = require "ubus".connect()
-			if not ubus then
-				return { error = "Unable to establish ubus connection" }
-			end
-
-			local status = ubus:call("network.wireless", "status", {})
-			if type(status) == "table" then
-				local radioname, radiodata
-				for radioname, radiodata in pairs(status) do
-					if type(radiodata) == "table" then
-						radiodata.iwinfo = ubus:call("iwinfo", "info", { device = radioname }) or {}
-						radiodata.iwinfo.bitrate     = nil
-						radiodata.iwinfo.bssid       = nil
-						radiodata.iwinfo.encryption  = nil
-						radiodata.iwinfo.mode        = nil
-						radiodata.iwinfo.quality     = nil
-						radiodata.iwinfo.quality_max = nil
-						radiodata.iwinfo.ssid        = nil
-
-						local iwdata = nil
-
-						if type(radiodata.interfaces) == "table" then
-							local _, interfacedata
-							for _, interfacedata in ipairs(radiodata.interfaces) do
-								if type(interfacedata) == "table" and
-								   type(interfacedata.ifname) == "string"
-								then
-									local iwinfo = ubus:call("iwinfo", "info", { device = interfacedata.ifname })
-
-									iwdata = iwdata or iwinfo
-									interfacedata.iwinfo = iwinfo or {}
-								end
-							end
-						end
-
-						radiodata.iwinfo = {}
-
-						local _, k, v
-						for k, v in pairs(iwdata or ubus:call("iwinfo", "info", { device = radioname }) or {}) do
-							if k ~= "bitrate" and k ~= "bssid" and k ~= "encryption" and
-							   k ~= "mode" and k ~= "quality" and k ~= "quality_max" and
-							   k ~= "ssid"
-							then
-								if type(v) == "table" then
-									radiodata.iwinfo[k] = json.parse(json.stringify(v))
-								else
-									radiodata.iwinfo[k] = v
-								end
-							end
-						end
-					end
-				end
-			end
-
-			return status
-		end
-	},
-
-	getBoardJSON = {
-		call = function(args)
-			local jsc = require "luci.jsonc"
-			return jsc.parse(fs.readfile("/etc/board.json") or "")
-		end
-	},
-
 	getConntrackHelpers = {
 		call = function()
 			local ok, fd = pcall(io.open, "/usr/share/fw3/helpers.conf", "r")
@@ -397,8 +216,10 @@ local methods = {
 			rv.sysntpd       = fs.readlink("/usr/sbin/ntpd") and true
 			rv.ipv6          = fs.access("/proc/net/ipv6_route")
 			rv.dropbear      = fs.access("/usr/sbin/dropbear")
+			rv.cabundle      = fs.access("/etc/ssl/certs/ca-certificates.crt")
+			rv.relayd        = fs.access("/usr/sbin/relayd")
 
-			local wifi_features = { "eap", "11n", "11ac", "11r", "11w", "acs", "sae", "owe", "suiteb192" }
+			local wifi_features = { "eap", "11n", "11ac", "11r", "11w", "acs", "sae", "owe", "suiteb192", "wep", "wps" }
 
 			if fs.access("/usr/sbin/hostapd") then
 				rv.hostapd = { cli = fs.access("/usr/sbin/hostapd_cli") }
@@ -543,25 +364,62 @@ local methods = {
 
 				while true do
 					local line = swc:read("*l")
-					if not line then break end
+					if not line or (line:match("^VLAN %d+:") and #ports > 0) then
+						break
+					end
 
-					local port, up = line:match("port:(%d+) link:(%w+)")
-					if port then
-						local speed  = line:match(" speed:(%d+)")
-						local duplex = line:match(" (%w+)-duplex")
-						local txflow = line:match(" (txflow)")
-						local rxflow = line:match(" (rxflow)")
-						local auto   = line:match(" (auto)")
-
-						ports[#ports+1] = {
-							port   = tonumber(port) or 0,
-							speed  = tonumber(speed) or 0,
-							link   = (up == "up"),
-							duplex = (duplex == "full"),
-							rxflow = (not not rxflow),
-							txflow = (not not txflow),
-							auto   = (not not auto)
+					local pnum = line:match("^Port (%d+):$")
+					if pnum then
+						port = {
+							port = tonumber(pnum),
+							duplex = false,
+							speed = 0,
+							link = false,
+							auto = false,
+							rxflow = false,
+							txflow = false
 						}
+
+						ports[#ports+1] = port
+					end
+
+					if port then
+						local m
+
+						if line:match("full[%- ]duplex") then
+							port.duplex = true
+						end
+
+						m = line:match(" speed:(%d+)")
+						if m then
+							port.speed = tonumber(m)
+						end
+
+						m = line:match("(%d+) Mbps")
+						if m and port.speed == 0 then
+							port.speed = tonumber(m)
+						end
+
+						m = line:match("link: (%d+)")
+						if m and port.speed == 0 then
+							port.speed = tonumber(m)
+						end
+
+						if line:match("link: ?up") or line:match("status: ?up") then
+							port.link = true
+						end
+
+						if line:match("auto%-negotiate") or line:match("link:.-auto") then
+							port.auto = true
+						end
+
+						if line:match("link:.-rxflow") then
+							port.rxflow = true
+						end
+
+						if line:match("link:.-txflow") then
+							port.txflow = true
+						end
 					end
 				end
 
@@ -679,11 +537,80 @@ local methods = {
 		end
 	},
 
-	setUmount = {
-		args = { path = "/mnt" },
+	getRealtimeStats = {
+		args = { mode = "interface", device = "eth0" },
 		call = function(args)
 			local util = require "luci.util"
-			return { result = (os.execute(string.format("/bin/umount %s", util.shellquote(args.path))) == 0) }
+
+			local flags
+			if args.mode == "interface" then
+				flags = "-i %s" % util.shellquote(args.device)
+			elseif args.mode == "wireless" then
+				flags = "-r %s" % util.shellquote(args.device)
+			elseif args.mode == "conntrack" then
+				flags = "-c"
+			elseif args.mode == "load" then
+				flags = "-l"
+			else
+				return { error = "Invalid mode" }
+			end
+
+			local fd, err = io.popen("luci-bwc %s" % flags, "r")
+			if fd then
+				local parse = json.new()
+				local done
+
+				parse:parse("[")
+
+				while true do
+					local ln = fd:read("*l")
+					if not ln then
+						break
+					end
+
+					done, err = parse:parse((ln:gsub("%d+", "%1.0")))
+
+					if done then
+						err = "Unexpected JSON data"
+					end
+
+					if err then
+						break
+					end
+				end
+
+				fd:close()
+
+				done, err = parse:parse("]")
+
+				if err then
+					return { error = err }
+				elseif not done then
+					return { error = "Incomplete JSON data" }
+				else
+					return { result = parse:get() }
+				end
+			else
+				return { error = err }
+			end
+		end
+	},
+
+	getConntrackList = {
+		call = function()
+			local sys = require "luci.sys"
+			return { result = sys.net.conntrack() }
+		end
+	},
+
+	getProcessList = {
+		call = function()
+			local sys = require "luci.sys"
+			local res = {}
+			for _, v in pairs(sys.process.list()) do
+				res[#res + 1] = v
+			end
+			return { result = res }
 		end
 	}
 }

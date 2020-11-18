@@ -1,13 +1,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2016-08-31 15:51+0200\n"
-"Language-Team: German\n"
+"PO-Revision-Date: 2020-07-11 21:29+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationsdynapoint/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: applications/luci-app-dynapoint/luasrc/model/cbi/dynapoint.lua:90
 msgid "Activate this wVIF if status is:"
@@ -45,13 +48,13 @@ msgstr "Gerät"
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: applications/luci-app-dynapoint/luasrc/controller/dynapoint.lua:7
+#: applications/luci-app-dynapoint/root/usr/share/luci/menu.d/luci-app-dynapoint.json:3
 msgid "DynaPoint"
-msgstr ""
+msgstr "DynaPoint"
 
 #: applications/luci-app-dynapoint/luasrc/model/cbi/dynapoint.lua:54
 msgid "Dynamic Access Point Manager"
-msgstr ""
+msgstr "Dynamischer Access Point-Manager"
 
 #: applications/luci-app-dynapoint/luasrc/model/cbi/dynapoint.lua:67
 msgid "Enabled"
@@ -64,6 +67,10 @@ msgid ""
 msgstr ""
 "Anzahl der fehlgeschlagenen Downloadversuche, nach denen die Verbindung als "
 "offline angesehen wird"
+
+#: applications/luci-app-dynapoint/root/usr/share/rpcd/acl.d/luci-app-dynapoint.json:3
+msgid "Grant UCI access for luci-app-dynapoint"
+msgstr "Gewähre UCI Zugriff auf luci-app-dynapoint"
 
 #: applications/luci-app-dynapoint/luasrc/model/cbi/dynapoint.lua:56
 msgid "List of Wireless Virtual Interfaces (wVIF)"
@@ -96,11 +103,11 @@ msgstr "Online"
 
 #: applications/luci-app-dynapoint/luasrc/model/cbi/dynapoint.lua:87
 msgid "SSID"
-msgstr ""
+msgstr "SSID"
 
 #: applications/luci-app-dynapoint/luasrc/model/cbi/dynapoint.lua:47
 msgid "Software Section"
-msgstr ""
+msgstr "Software-Bereich"
 
 #: applications/luci-app-dynapoint/luasrc/model/cbi/dynapoint.lua:27
 msgid "Switch_to_offline threshold"
@@ -138,7 +145,7 @@ msgstr ""
 
 #: applications/luci-app-dynapoint/luasrc/model/cbi/dynapoint.lua:61
 msgid "WiFi Status"
-msgstr ""
+msgstr "WiFi-Status"
 
 #~ msgid "Curl is currently not installed."
 #~ msgstr "Curl ist momentan nicht installiert."

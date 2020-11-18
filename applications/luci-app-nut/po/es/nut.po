@@ -1,16 +1,17 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-07-25 18:52-0300\n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"PO-Revision-Date: 2020-05-02 15:55+0000\n"
 "Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationsnut/es/>\n"
 "Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.1-dev\n"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:216
 msgid "Additional Shutdown Time(s)"
@@ -18,7 +19,7 @@ msgstr "Tiempo adicional de apagado (s)"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:37
 msgid "Addresses on which to listen"
-msgstr "Direcciones donde escuchar."
+msgstr "Direcciones donde escuchar"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:23
 msgid "Allowed actions"
@@ -32,7 +33,7 @@ msgstr "Según lo configurado por NUT"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:150
 msgid "Bytes to read from interrupt pipe"
-msgstr "Bytes para leer desde tubo de interrupción."
+msgstr "Bytes para leer desde tubo de interrupción"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:174
 msgid "CA Certificate path"
@@ -117,16 +118,16 @@ msgstr "Soltar privilegios a este usuario"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_cgi.lua:40
 msgid "Enable"
-msgstr "Habilitar"
+msgstr "Activar"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:138
 msgid ""
 "Enables a hotplug script that makes all ttyUSB devices (e.g. serial USB) "
 "group read-write as user 'nut'"
 msgstr ""
-"Habilita una secuencia de comandos de conexión en caliente que hace que "
-"todos los dispositivos ttyUSB (por ejemplo, USB serie) sean de lectura y "
-"escritura como usuario 'nut'"
+"Activa una secuencia de comandos de conexión en caliente que hace que todos "
+"los dispositivos ttyUSB (por ejemplo, USB serie) sean de lectura y escritura "
+"como usuario 'nut'"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:93
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:102
@@ -156,6 +157,10 @@ msgstr "Configuración global"
 #: applications/luci-app-nut/luasrc/model/cbi/nut_cgi.lua:13
 msgid "Go to NUT CGI"
 msgstr "Ir a CGI de NUT"
+
+#: applications/luci-app-nut/root/usr/share/rpcd/acl.d/luci-app-nut.json:3
+msgid "Grant UCI access for luci-app-nut"
+msgstr "Conceder acceso UCI para luci-app-nut"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_cgi.lua:16
 msgid "Host"
@@ -217,7 +222,7 @@ msgstr "Fabricante (Display)"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:34
 msgid "Master"
-msgstr "Maestro"
+msgstr "AP"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:154
 msgid "Max USB HID Length Reported"
@@ -227,7 +232,12 @@ msgstr "Longitud máxima de USB HID informada"
 msgid "Maximum Age of Data"
 msgstr "Edad máxima de los datos"
 
+#: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:91
+msgid "Maximum Retries"
+msgstr "Reintentos máximos"
+
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:87
+#: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:158
 msgid "Maximum Start Delay"
 msgstr "Retardo de arranque máximo"
 
@@ -242,14 +252,6 @@ msgstr "Número máximo de veces para intentar iniciar un controlador."
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:101
 msgid "Maximum time in seconds between refresh of UPS status"
 msgstr "Tiempo máximo en segundos para la actualización del estado de UPS"
-
-#: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:91
-msgid "Maxium Retries"
-msgstr "Reintentos máximos"
-
-#: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:158
-msgid "Maxium Start Delay"
-msgstr "Retardo de arranque máximo"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:17
 msgid "Minimum required number or power supplies"
@@ -272,22 +274,22 @@ msgstr "Usuarios de NUT"
 msgid "Name of UPS"
 msgstr "Nombre de UPS"
 
-#: applications/luci-app-nut/luasrc/controller/nut.lua:11
+#: applications/luci-app-nut/root/usr/share/luci/menu.d/luci-app-nut.json:3
 msgid "Network UPS Tools"
 msgstr "Herramientas de red de UPS"
 
-#: applications/luci-app-nut/luasrc/controller/nut.lua:22
 #: applications/luci-app-nut/luasrc/model/cbi/nut_cgi.lua:6
+#: applications/luci-app-nut/root/usr/share/luci/menu.d/luci-app-nut.json:44
 msgid "Network UPS Tools (CGI)"
 msgstr "Herramientas UPS de red (CGI)"
 
-#: applications/luci-app-nut/luasrc/controller/nut.lua:18
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:7
+#: applications/luci-app-nut/root/usr/share/luci/menu.d/luci-app-nut.json:31
 msgid "Network UPS Tools (Monitor)"
 msgstr "Herramientas de red de UPS (Monitor)"
 
-#: applications/luci-app-nut/luasrc/controller/nut.lua:14
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:9
+#: applications/luci-app-nut/root/usr/share/luci/menu.d/luci-app-nut.json:18
 msgid "Network UPS Tools (Server)"
 msgstr "Herramientas de red de UPS (servidor)"
 
@@ -325,7 +327,7 @@ msgstr "Notificación predeterminada"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:26
 msgid "Notify command"
-msgstr "Notificar comando"
+msgstr "Orden de notificación"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:99
 msgid "Notify when back online"
@@ -337,15 +339,15 @@ msgstr "Notificar cuando la batería necesita ser reemplazada"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:147
 msgid "Notify when communications lost"
-msgstr "Notificar cuando se pierden las comunicaciones."
+msgstr "Notificar cuando se pierdan las comunicaciones"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:139
 msgid "Notify when communications restored"
-msgstr "Notificar cuando se restauren las comunicaciones."
+msgstr "Notificar cuando se restauren las comunicaciones"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:131
 msgid "Notify when force shutdown"
-msgstr "Notificar cuando se fuerce el apagao"
+msgstr "Notificar cuando se fuerce el apagado"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:115
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:123
@@ -354,11 +356,11 @@ msgstr "Notificar cuando la batería está baja"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:107
 msgid "Notify when on battery"
-msgstr "Notificar cuando está en la batería"
+msgstr "Notificar cuando se utilice la batería"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:155
 msgid "Notify when shutting down"
-msgstr "Notificar cuando se apaga"
+msgstr "Notificar cuando se apague"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:177
 msgid "Off Delay(s)"
@@ -370,11 +372,11 @@ msgstr "Retardo de encendido (s)"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:51
 msgid "On battery message"
-msgstr "En el mensaje de la batería"
+msgstr "Mensaje de estado en batería"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:48
 msgid "Online message"
-msgstr "Mensaje en linea"
+msgstr "Mensaje en línea"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:208
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:237
@@ -385,12 +387,12 @@ msgstr "Contraseña"
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:174
 msgid "Path containing ca certificates to match against host certificate"
 msgstr ""
-"Ruta que contiene certificados de CA para coincidir con el certificado del "
-"host"
+"Ruta que contiene certificados de CA para relacionarlos con el certificado "
+"del anfitrión"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:83
 msgid "Path to drivers (instead of default)"
-msgstr "Ruta a los controladores (en lugar de predeterminado)"
+msgstr "Ruta a los controladores (en lugar de la predeterminada)"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:63
 msgid "Path to state file"
@@ -398,7 +400,7 @@ msgstr "Ruta al archivo de estado"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:54
 msgid "Period after which data is considered stale"
-msgstr "Período después del cual los datos se consideran obsoletos."
+msgstr "Período después del cual los datos se consideran obsoletos"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:101
 msgid "Poll Interval"
@@ -444,7 +446,7 @@ msgstr ""
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:96
 msgid "Retry Delay"
-msgstr "Retraso de reintento"
+msgstr "Reintentar demora"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:32
 msgid "Role"
@@ -502,7 +504,7 @@ msgstr "Establecer variables"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:22
 msgid "Shutdown command"
-msgstr "Comando de apagado"
+msgstr "Orden de apagado"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:66
 msgid "Shutdown message"
@@ -565,7 +567,7 @@ msgid ""
 "Use upscmd -l to see full list which the commands your UPS supports "
 "(requires upscmd package)"
 msgstr ""
-"Use upscmd -l para ver la lista completa de los comandos que soporta su UPS "
+"Use upscmd -l para ver la lista completa de las órdenes que admite su UPS "
 "(requiere el paquete upscmd)"
 
 #: applications/luci-app-nut/luasrc/model/cbi/nut_server.lua:110
@@ -615,3 +617,6 @@ msgstr "chroot"
 #: applications/luci-app-nut/luasrc/model/cbi/nut_monitor.lua:14
 msgid "upsmon drops privileges to this user"
 msgstr "upsmon le quita privilegios a este usuario"
+
+#~ msgid "Maxium Start Delay"
+#~ msgstr "Retardo de arranque máximo"

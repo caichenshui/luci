@@ -5,25 +5,29 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-16 06:58+0200\n"
-"PO-Revision-Date: 2009-08-13 07:49+0200\n"
-"Last-Translator: Hong Phuc Dang <dhppat@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-10-26 20:34+0000\n"
+"Last-Translator: 0x2f0713 <namhaiha0308@gmail.com>\n"
+"Language-Team: Vietnamese <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationspolipo/vi/>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Pootle 1.1.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:121
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Cài đặt nâng cao"
 
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:35
 msgid "Allowed clients"
 msgstr "Đối tượng cho phép"
 
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:67
+#, fuzzy
 msgid "Always use system DNS resolver"
-msgstr ""
+msgstr "Luôn sử dụng hệ thống phân giải tên miền (DNS) của hệ thống"
 
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:88
 msgid ""
@@ -33,7 +37,7 @@ msgstr ""
 "Sự chứng thực HTTP Cơ bản được hỗ trợ. Cung cấp tên người dùng và mật khẩu "
 "trong tên người dùng: mật khẩu định dạng"
 
-#: applications/luci-app-polipo/luasrc/controller/polipo.lua:13
+#: applications/luci-app-polipo/root/usr/share/luci/menu.d/luci-app-polipo.json:24
 msgid "Configuration"
 msgstr ""
 
@@ -70,6 +74,10 @@ msgstr "Dung lượng phân đoạn PMM đầu tiên (in bytes)"
 msgid "General Settings"
 msgstr ""
 
+#: applications/luci-app-polipo/root/usr/share/rpcd/acl.d/luci-app-polipo.json:3
+msgid "Grant UCI access for luci-app-polipo"
+msgstr ""
+
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:113
 msgid "How much RAM should Polipo use for its cache."
 msgstr "Bao nhiêu RAM Polipo nên dùng cho cạc."
@@ -80,7 +88,7 @@ msgstr "Trong RAM dung lượng cạc (tính theo bytes)"
 
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:18
 msgid "Listen address"
-msgstr "Địa chỉ nge"
+msgstr "Địa chỉ nghe"
 
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:26
 msgid "Listen port"
@@ -140,8 +148,8 @@ msgstr ""
 msgid "Parent proxy authentication"
 msgstr "Xác thực parent proxy "
 
-#: applications/luci-app-polipo/luasrc/controller/polipo.lua:11
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:4
+#: applications/luci-app-polipo/root/usr/share/luci/menu.d/luci-app-polipo.json:3
 msgid "Polipo"
 msgstr "Polipo"
 
@@ -229,9 +237,9 @@ msgstr ""
 msgid "Size to which cached files should be truncated"
 msgstr ""
 
-#: applications/luci-app-polipo/luasrc/controller/polipo.lua:12
+#: applications/luci-app-polipo/root/usr/share/luci/menu.d/luci-app-polipo.json:15
 msgid "Status"
-msgstr ""
+msgstr "Trạng thái"
 
 #: applications/luci-app-polipo/luasrc/model/cbi/polipo.lua:99
 msgid "Syslog facility"

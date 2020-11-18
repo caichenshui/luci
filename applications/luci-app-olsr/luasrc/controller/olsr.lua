@@ -26,6 +26,7 @@ function index()
 	page.target = template("status-olsr/overview")
 	page.title  = _("OLSR")
 	page.subindex = true
+	page.acl_depends = { "luci-app-olsr" }
 
 	local page  = node("admin", "status", "olsr", "json")
 	page.target = call("action_json")
@@ -74,7 +75,6 @@ function index()
 		{"admin", "services", "olsrd", "display"},
 		cbi("olsr/olsrddisplay"), _("Display")
 	)
-
 end
 
 function action_json()
@@ -130,7 +130,6 @@ function action_neigh(json)
 	local devices  = ntm:get_wifidevs()
 	local sys = require "luci.sys"
 	local assoclist = {}
-	--local neightbl = require "neightbl"
 	local ntm = require "luci.model.network"
 	local ipc = require "luci.ip"
 	local nxo = require "nixio"
